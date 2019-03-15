@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">BikeShare</string>
+    <string name="login_form_namet">LOGIN</string>
+    <string name="login_email_hint">Email address</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_btn">Login</string>
+    <string name="register_btn">Register</string>
+    <string name="login_register">Create an account</string>
+    <string name="register_form_name">REGISTER</string>
+    <string name="register_email">Email address</string>
+    <string name="register_password">Password</string>
+    <string name="register_confirm_password">Retype password</string>
+    <string name="register_name">User name</string>
+    <string name="register_address">Address</string>
 </resources>
