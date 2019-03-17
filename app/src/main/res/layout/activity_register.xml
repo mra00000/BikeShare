@@ -5,78 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
-
-    <TextView
+    <ImageView
+        android:id="@+id/user_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/app_name"
-        android:textSize="45sp"
-        android:textStyle="bold"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_username_placeholder"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_image"/>
+    <TextView
+        android:id="@+id/txt_more_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_more_info"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_welcome"/>
 
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:paddingLeft="5dp"
-            android:layout_gravity="center"
-            android:text="@string/register_form_name"
-            android:paddingStart="5dp" />
+        app:layout_constraintTop_toBottomOf="@id/txt_more_info">
 
         <EditText
-            android:id="@+id/edit_email"
+            android:id="@+id/edit_sign_up_phone"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:hint="@string/login_email_hint" />
+            android:hint="@string/signup_phone" />
 
         <EditText
-            android:id="@+id/edit_password"
+            android:id="@+id/edit_sign_up_address"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:hint="@string/register_password" />
-
-        <EditText
-            android:id="@+id/edit_confirm_password"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:hint="@string/register_confirm_password" />
-        <EditText
-            android:id="@+id/edit_username"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:hint="@string/register_name" />
-        <EditText
-            android:id="@+id/edit_address"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:hint="@string/register_address" />
+            android:inputType="text|textMultiLine"
+            android:hint="@string/signup_address" />
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="150dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:hint="@string/register_btn"
+            android:hint="@string/signup_done_btn"
             android:layout_marginTop="15dp"
             android:textAlignment="center" />
     </LinearLayout>
