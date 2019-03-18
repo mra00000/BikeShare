@@ -1,4 +1,4 @@
-package com.fpt.prm.bikeshare;
+package com.fpt.prm.bikeshare.Controller.Activity;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.fpt.prm.bikeshare.Entity.User;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.Helper.DataFaker;
+import com.fpt.prm.bikeshare.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

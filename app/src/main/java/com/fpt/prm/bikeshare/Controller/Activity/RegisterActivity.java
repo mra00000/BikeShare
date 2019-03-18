@@ -1,4 +1,4 @@
-package com.fpt.prm.bikeshare;
+package com.fpt.prm.bikeshare.Controller.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.fpt.prm.bikeshare.Entity.User;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
+import com.fpt.prm.bikeshare.R;
 
 import java.util.Date;
 
