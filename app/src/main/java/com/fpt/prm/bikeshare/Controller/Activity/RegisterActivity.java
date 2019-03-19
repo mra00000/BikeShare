@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
                 signUpData.getString("name"),
                 "",
                 signUpData.getString("email"),
+                userAddress.getText().toString(),
                 userPhone.getText().toString(),
                 signUpData.getString("image"),
                 0,
@@ -54,5 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Todo: save data to server's database here
 
         AppEnvironment.setCurrentUser(newUser);
+        Intent homeIntent = new Intent(this, MainActivity.class);
+        startActivity(homeIntent);
     }
 }

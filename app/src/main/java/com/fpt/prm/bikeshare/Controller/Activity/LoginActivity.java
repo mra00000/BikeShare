@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fpt.prm.bikeshare.Entity.User;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
@@ -31,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Development only
+        Intent t = new Intent(this, MainActivity.class);
+        startActivity(t);
+
         // Setting up sign in configurations
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -43,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
             User user = DataFaker.getFakeUser();
             AppEnvironment.setCurrentUser(user);
+            Intent homeIntent = new Intent(this, MainActivity.class);
+            startActivity(homeIntent);
         }
         this.signInButton = findViewById(R.id.sign_in_btn);
         this.signInButton.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +80,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 User user = DataFaker.getFakeUser();
                 AppEnvironment.setCurrentUser(user);
+                Intent t = new Intent(this, MainActivity.class);
+                startActivity(t);
             } else if (requestCode == RC_SIGN_UP) {
                 Bundle signUpData = new Bundle();
                 signUpData.putString("email", account.getEmail());
@@ -83,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(t);
             }
         } catch (ApiException e) {
-            Log.v("sign in info: ", "sign in failed");
+            Toast.makeText(this, "Cannot connect to internet", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
