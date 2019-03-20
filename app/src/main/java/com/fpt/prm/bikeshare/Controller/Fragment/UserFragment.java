@@ -1,5 +1,6 @@
 package com.fpt.prm.bikeshare.Controller.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fpt.prm.bikeshare.Controller.Activity.BalanceManageActivity;
 import com.fpt.prm.bikeshare.Entity.User;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.R;
@@ -48,6 +50,14 @@ public class UserFragment extends Fragment {
         this.txtPhone.setText(this.user.getPhone());
         this.txtAddress.setText(this.user.getAddress());
         this.txtBalance.setText("$" + this.user.getBalance());
+
+        this.manageBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent t = new Intent(getContext(), BalanceManageActivity.class);
+                startActivity(t);
+            }
+        });
         return v;
     }
 }
