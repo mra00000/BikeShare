@@ -1,6 +1,5 @@
 package com.fpt.prm.bikeshare.Controller.Activity;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +8,7 @@ import android.os.Bundle;
 
 import com.fpt.prm.bikeshare.Adapter.HomeTabViewPagerAdapter;
 import com.fpt.prm.bikeshare.Controller.Fragment.HistoryFragment;
-import com.fpt.prm.bikeshare.Controller.Fragment.PosstFragment;
+import com.fpt.prm.bikeshare.Controller.Fragment.PostsFragment;
 import com.fpt.prm.bikeshare.Controller.Fragment.UserFragment;
 import com.fpt.prm.bikeshare.R;
 
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeTabViewPagerAdapter getViewPagerAdapter() {
         HomeTabViewPagerAdapter adapter =
                 new HomeTabViewPagerAdapter(getSupportFragmentManager());
-        adapter.addItem(new PosstFragment());
+        adapter.addItem(new PostsFragment());
         adapter.addItem(new HistoryFragment());
         adapter.addItem(new UserFragment());
         return adapter;
