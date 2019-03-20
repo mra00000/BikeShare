@@ -7,10 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeTabViewPagerAdapter extends FragmentPagerAdapter {
+public class BasicTabViewAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragmentList;
 
-    public HomeTabViewPagerAdapter(FragmentManager fm) {
+    public BasicTabViewAdapter(FragmentManager fm) {
         super(fm);
         this.fragmentList = new ArrayList<>();
     }
