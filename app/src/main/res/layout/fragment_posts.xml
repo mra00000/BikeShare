@@ -9,14 +9,16 @@
 
     <ListView
         android:id="@+id/listPostsView"
-        android:layout_width="373dp"
+        android:layout_width="408dp"
         android:layout_height="480dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="51dp"
-        android:layout_x="6dp"
-        android:layout_y="46dp" />
+        android:layout_x="0dp"
+        android:layout_y="46dp" >
+
+    </ListView>
 
     <Button
         android:id="@+id/btnNewPost"
@@ -26,7 +28,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="463dp"
-        android:layout_x="288dp"
+        android:layout_x="297dp"
         android:layout_y="0dp"
         android:text="@string/add_new_post" />
 
@@ -42,6 +44,8 @@
         android:layout_marginTop="21dp"
         android:layout_x="12dp"
         android:layout_y="15dp"
-        android:text="Choose one motorbike" />
+        android:text="BIKESHARE"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 </AbsoluteLayout>

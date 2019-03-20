@@ -35,11 +35,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private HomeTabViewPagerAdapter getViewPagerAdapter() {
-        HomeTabViewPagerAdapter adapter =
-                new HomeTabViewPagerAdapter(getSupportFragmentManager());
+    private BasicTabViewAdapter getViewPagerAdapter() {
+        BasicTabViewAdapter adapter =
+                new BasicTabViewAdapter(getSupportFragmentManager());
         adapter.addItem(new PostsFragment());
-
         adapter.addItem(new HistoryFragment());
         adapter.addItem(new UserFragment());
         return adapter;

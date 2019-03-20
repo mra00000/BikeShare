@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Controller.Activity.BalanceManageActivity"></activity>
+        <activity android:name=".Controller.Activity.BalanceManageActivity" />
         <activity
             android:name=".Controller.Activity.RegisterActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Controller.Activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -24,13 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.Activity.MainActivity"
+        <activity
+            android:name=".Controller.Activity.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.Activity.DetailActivity"></activity>
+        <activity android:name=".Controller.Activity.DetailActivity" />
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.fpt.prm.bikeshare.Helper;
 
+import com.fpt.prm.bikeshare.Entity.History;
 import com.fpt.prm.bikeshare.Entity.Post;
 import com.fpt.prm.bikeshare.Entity.User;
 
@@ -29,6 +30,33 @@ public class DataFaker {
         list.add(getFakeBikeDetail(2));
 
         return list;
+    }
+    public static List getFakeListHistory(){
+        List<History> list = new ArrayList<>();
+        //TODO get all Post
+        list.add(getFakeHistory(1));
+        list.add(getFakeHistory(2));
+
+        return list;
+    }
+    public static History getFakeHistory(int id) {
+        if(id==1)
+        return new History(
+                id,
+                1,
+                "Rent",
+                1,
+                new Date(),
+                new Date()
+        );
+        else return new History(
+                id,
+                1,
+                "Post",
+                1,
+                new Date(),
+                new Date()
+        );
     }
     public static Post getFakeBikeDetail(int id) {
         return new Post(

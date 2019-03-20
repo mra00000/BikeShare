@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_dark_pressed"
+    app:layout_anchorGravity="center_vertical"
     tools:layout_editor_absoluteY="81dp">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="107dp"
+        android:layout_marginBottom="5dp"
+        android:background="#ECEFF1"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDetail"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -28,6 +41,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
         android:text="Title"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,6 +54,7 @@
         android:layout_marginEnd="104dp"
         android:layout_marginRight="104dp"
         android:text="Price"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/btnDetail"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
@@ -56,4 +72,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtPrice"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="421dp"
+        android:layout_height="5dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
 </android.support.constraint.ConstraintLayout>
