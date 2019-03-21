@@ -14,7 +14,7 @@
         android:paddingTop="20dp">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txtHistoryTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -24,6 +24,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/listHistory"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.071"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +36,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/txtHistoryTransaction"
+            android:divider="@null"
+            android:dividerHeight="0dp"/>
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

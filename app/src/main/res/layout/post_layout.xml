@@ -30,11 +30,11 @@
         app:layout_constraintBottom_toBottomOf="@+id/txtPrice"
         app:layout_constraintEnd_toStartOf="@+id/txtPrice"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtTitle"
+        app:layout_constraintTop_toTopOf="@+id/txtTitlePost"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/txtTitle"
+        android:id="@+id/txtTitlePost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -57,7 +57,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/btnDetail"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/txtTitlePost" />
 
     <Button
         android:id="@+id/btnDetail"
@@ -67,6 +67,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginBottom="14dp"
+        android:gravity="center_vertical|center_horizontal|center"
         android:text="Detail"
         app:layout_constraintBottom_toTopOf="@+id/txtPrice"
         app:layout_constraintEnd_toEndOf="parent"

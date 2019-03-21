@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,45 +8,62 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ListView
-        android:id="@+id/listPostsView"
-        android:layout_width="408dp"
-        android:layout_height="480dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="51dp"
-        android:layout_x="0dp"
-        android:layout_y="46dp" >
-
-    </ListView>
-
-    <Button
-        android:id="@+id/btnNewPost"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="463dp"
-        android:layout_x="297dp"
-        android:layout_y="0dp"
-        android:text="@string/add_new_post" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="21dp"
-        android:layout_x="12dp"
-        android:layout_y="15dp"
-        android:text="BIKESHARE"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</AbsoluteLayout>
+            <TextView
+                android:id="@+id/txtAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="12dp"
+                android:layout_x="12dp"
+                android:layout_y="15dp"
+                android:text="BIKESHARE"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="588dp" />
+
+            <Button
+                android:id="@+id/btnNewPost"
+                android:layout_width="106dp"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="false"
+                android:layout_marginRight="3dp"
+                android:layout_x="283dp"
+                android:layout_y="0dp"
+                android:text="@string/add_new_post"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/listPostsView"
+            android:layout_width="match_parent"
+            android:layout_height="480dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:paddingBottom="20dp">
+
+        </ListView>
+
+    </LinearLayout>
+
+</FrameLayout>

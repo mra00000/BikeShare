@@ -2,18 +2,19 @@ package com.fpt.prm.bikeshare.Entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Post implements Serializable {
     private int id;
     private int userId;
     private String title;
-    private String image;
+    private List<String> image;
     private String description;
     private int price;
     private Date created_at;
     private Date updated_at;
 
-    public Post(int id, int userId, String title, String image, String description, int price, Date created_at, Date updated_at) {
+    public Post(int id, int userId, String title, List<String> image, String description, int price, Date created_at, Date updated_at) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -51,11 +52,11 @@ public class Post implements Serializable {
         this.title = title;
     }
 
-    public String getImage() {
+    public List<String> getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
 
