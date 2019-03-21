@@ -25,7 +25,7 @@ public class DbContext {
         SQLServerDataSource dataSource = new SQLServerDataSource();
         dataSource.setUser(user);
         dataSource.setPassword(password);
-        dataSource.setServerName("localhost");
+        dataSource.setServerName("34.80.20.194");
         dataSource.setPortNumber(1433);
         dataSource.setDatabaseName("BikeShare");
         return dataSource.getConnection();

@@ -113,7 +113,7 @@ public class BookingHistoryResource {
         User user = (new UserDAO()).getUserByEmail(query.getEmail()); 
         if (user != null) {
             //should edit to get history in a time interval
-            if (FirebaseHelper.checkAuthentication(query.getEmail(), query.getToken())) {
+            if (!FirebaseHelper.checkAuthentication(query.getToken()).equals("")) {
                 return bookingDao.getBookingHistory(user.getId());
             }
         }

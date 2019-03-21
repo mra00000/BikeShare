@@ -72,6 +72,22 @@ public class UserDAO {
         pre.execute();
     }
     
+    public boolean updateUser (User user) throws SQLException {
+        String sql = "update users "
+                + "set name = ?, email = ?, password = ?, balance = ?, created_at = ?, updated_at = ? "
+                + "where id = ?";
+        PreparedStatement pre = connection.prepareStatement(sql);
+        pre.setString(1, user.getName());
+        pre.setString(2, user.getEmail());
+        pre.setString(3, user.getPassword());
+        pre.setDouble(4, user.getBalance());
+        pre.setTimestamp(5, user.getCreatedTime());
+        pre.setTimestamp(6, user.getLastUpdatedTime());
+        pre.setInt(7, user.getId());
+        boolean ok = pre.execute();
+        return ok;
+    }
+    
     public boolean isExisted (String email) throws SQLException {
         return (this.getUserByEmail(email) != null);
     }
@@ -79,7 +95,9 @@ public class UserDAO {
     public static void main(String[] args) throws Exception {
         UserDAO dao = new UserDAO();
         try {
-            System.out.println(dao.isExisted("ahcl@gmail.com"));
+            long time = (new java.util.Date()).getTime();
+            User user = new User(2, "duong", "0932585101", "ahcl@gmail.com", "123122", 123122.0, new Timestamp(time), new Timestamp(time));
+            dao.updateUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }

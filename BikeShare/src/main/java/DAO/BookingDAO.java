@@ -67,11 +67,6 @@ public class BookingDAO {
         pre.execute();
     }
     
-    
-//    public boolean isExisted (String email) throws SQLException {
-//        return (this.getUser(email) != null);
-//    }
-    
     public List<Booking> getAllBooking () throws SQLException {
         List<Booking> result = new ArrayList<>();
         String sql = "select * from " + BookingStruct.TABLE_NAME;

@@ -7,15 +7,20 @@ package DAO;
 
 import Model.Post;
 import Model.User;
+import Services.FirebaseHelper;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.imageio.ImageIO;
+import sun.misc.BASE64Decoder;
 
 /**
  *
@@ -90,9 +95,9 @@ public class PostDAO {
         return this.getPosts(from, to);
     }
     
-    public void createPost (Post post) throws SQLException {
+    public int createPost (Post post) throws SQLException {
         String sql = "insert into Posts(user_id, title, description, images, price, created_at, updated_at) values(?,?,?,?,?,?,?)";
-        PreparedStatement pre = connection.prepareStatement(sql);
+        PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pre.setInt(1, post.getUserId());
         pre.setString(2, post.getTitle());
         pre.setString(3, post.getDescription());
@@ -101,7 +106,31 @@ public class PostDAO {
         long currentTimestamp = (new java.util.Date()).getTime();
         pre.setTimestamp(6, new Timestamp(currentTimestamp));
         pre.setTimestamp(7, new Timestamp(currentTimestamp));
-        pre.execute();
+        int isAdded = pre.executeUpdate();
+        System.out.println(isAdded);
+        if (isAdded > 0) {
+            ResultSet rs = pre.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
+            else return -1;
+        } else return -1;
+    }
+    
+    public boolean updatePost(Post post) throws SQLException {
+        String sql = "update posts "
+                + "set user_id = ?, title = ?, images = ?, description = ?, price = ?, created_at = ?, updated_at = ? "
+                + "where id = ?";
+        PreparedStatement pre = connection.prepareStatement(sql);
+        pre.setInt(1, post.getUserId());
+        pre.setString(2, post.getTitle());
+        pre.setString(3, post.getImages());
+        pre.setString(4, post.getDescription());
+        pre.setDouble(5, post.getPrice());
+        pre.setTimestamp(6, post.getCreatedTime());
+        long currentTime = (new java.util.Date()).getTime();
+        pre.setTimestamp(7, new Timestamp(currentTime));
+        pre.setInt(8, post.getId());
+        int ok = pre.executeUpdate();
+        return ok > 0;
     }
     
     
@@ -146,16 +175,31 @@ public class PostDAO {
         }
         return result;
     }
+     
+     public String uploadImage(String base64Image, String fileName) {
+        try {
+            byte[] imageByte;
+            BufferedImage bufferedImage = null;
+            BASE64Decoder decoder = new BASE64Decoder();
+            imageByte = decoder.decodeBuffer(base64Image);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            bufferedImage = ImageIO.read(bis);
+            String url = FirebaseHelper.upload(imageByte, fileName);
+            return url;
+        } catch (Exception e){
+            return "";
+        }
+     }
     
     
     
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
         try {
-            List<Post> posts = dao.getPosts(2, 3);
-            for(Post p:posts){
-                System.out.println(p.getCreatedTime());
-            }
+            long time = (new Date()).getTime();
+            Post post = new Post(3, 2, "cho muon xe xxx", "minh cho muon xe thu 7 va chu nhat tuan nay......", "https://storage.googleapis.com/bikeshare-fb429.appspot.com/test5.png?GoogleAccessId=firebase-adminsdk-0g30i@bikeshare-fb429.iam.gserviceaccount.com&Expires=1584715482&Signature=OYfYEjHMoiraEtMJSyBM5hkUl4l2fNxTUqyLZOmUo2E2fsDlBbFQdi%2BSiRNRiHecwVGB5mZTA9fVio02c1e0rS6AlgIWqsOa5n2UplJnxbcFC6h0rVB4lx7w6zBEbOyUYuAYCUcaelDl3Dr0pmxTrllUjbkjERrPZKWcl8omwkiLhTQOvhvQW4L4kjLgYDpfDYHT2qZ73J8h5L7mwO1nynYrMD1g2t%2FNMrbLxdt2NVGkE21Kro9P8pvlgjfESThj8ljNuJ%2BDqey8RNGIhcs0TCFOs%2FVQcfqV6RuLD6DRq3ALlX0jwVPDXRvtgNfDC2OtDXCTjol2jh58rRpTRyRtFA%3D%3D",
+                12.123, new Timestamp(time), new Timestamp(time));
+            dao.updatePost(post);
         } catch (Exception e) {
             e.printStackTrace();
         }

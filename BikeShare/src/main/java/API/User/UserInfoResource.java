@@ -11,7 +11,6 @@ import Services.FirebaseHelper;
 import com.google.gson.Gson;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -54,7 +53,7 @@ class userInfoQuery {
 
 }
 @Path("userInfo")
-public class UserResource {
+public class UserInfoResource {
 
     @Context
     private UriInfo context;
@@ -62,7 +61,7 @@ public class UserResource {
     /**
      * Creates a new instance of UserInfoResource
      */
-    public UserResource() {
+    public UserInfoResource() {
     }
 
     /**
@@ -71,9 +70,8 @@ public class UserResource {
      */
     @GET
     @Produces("application/json")
-    public String getJson() {
-        Gson gson = new Gson();
-        return gson.toJson(new userInfoQuery("asdf", "asdf"));
+    public userInfoQuery getJson() {
+        return new userInfoQuery("asdf", "asdf");
         //TODO return proper representation object
    //     throw new UnsupportedOperationException();
     }
@@ -95,7 +93,7 @@ public class UserResource {
         userDao = new UserDAO();
         String email = query.getEmail();
         String token = query.getToken();
-        if (FirebaseHelper.checkAuthentication(email, token)) {
+        if (!FirebaseHelper.checkAuthentication(token).equals("")) {
             User userInfo = userDao.getUserByEmail(email);
             return userInfo;
         } else {
