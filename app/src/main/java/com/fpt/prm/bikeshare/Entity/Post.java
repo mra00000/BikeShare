@@ -1,31 +1,53 @@
 package com.fpt.prm.bikeshare.Entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
 public class Post implements Serializable {
+
+
     private int id;
     private int userId;
     private String title;
-    private List<String> image;
     private String description;
-    private int price;
-    private Date created_at;
-    private Date updated_at;
+    private String images;
+    private double price;
+    private Timestamp createdTime, lastUpdatedTime;
+    public Post() {
+    }
 
-    public Post(int id, int userId, String title, List<String> image, String description, int price, Date created_at, Date updated_at) {
+    public Post(int id, int userId, String title, String description, String images, double price, Timestamp createdTime, Timestamp lastUpdatedTime) {
         this.id = id;
         this.userId = userId;
         this.title = title;
-        this.image = image;
         this.description = description;
+        this.images = images;
         this.price = price;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+        this.createdTime = createdTime;
+        this.lastUpdatedTime = lastUpdatedTime;
     }
 
-    public Post() {
+    public Post(int userId, String title, String description, String images, double price, Timestamp createdTime, Timestamp lastUpdatedTime) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.images = images;
+        this.price = price;
+        this.createdTime = createdTime;
+        this.lastUpdatedTime = lastUpdatedTime;
+    }
+
+    public Post(int userId, String title, String description, String images, double price) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.images = images;
+        this.price = price;
+        this.createdTime = createdTime;
+        this.lastUpdatedTime = lastUpdatedTime;
     }
 
     public int getId() {
@@ -52,14 +74,6 @@ public class Post implements Serializable {
         this.title = title;
     }
 
-    public List<String> getImage() {
-        return image;
-    }
-
-    public void setImage(List<String> image) {
-        this.image = image;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -68,27 +82,37 @@ public class Post implements Serializable {
         this.description = description;
     }
 
-    public int getPrice() {
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public Timestamp getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public Timestamp getLastUpdatedTime() {
+        return lastUpdatedTime;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setLastUpdatedTime(Timestamp lastUpdatedTime) {
+        this.lastUpdatedTime = lastUpdatedTime;
     }
+
+
 }

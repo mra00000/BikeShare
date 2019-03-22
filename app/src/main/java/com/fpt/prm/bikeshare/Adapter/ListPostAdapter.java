@@ -2,24 +2,21 @@ package com.fpt.prm.bikeshare.Adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fpt.prm.bikeshare.Common.ProcessImage;
 import com.fpt.prm.bikeshare.Controller.Activity.DetailActivity;
 import com.fpt.prm.bikeshare.Entity.Post;
+import com.fpt.prm.bikeshare.Helper.StringHelper;
+import com.fpt.prm.bikeshare.Helper.TimeHelper;
 import com.fpt.prm.bikeshare.R;
+import com.squareup.picasso.Picasso;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 public class ListPostAdapter extends BaseAdapter {
@@ -60,14 +57,20 @@ public class ListPostAdapter extends BaseAdapter {
         }
         TextView txtTitle = view.findViewById(R.id.txtTitlePost);
         TextView txtPrice = view.findViewById(R.id.txtPrice);
+        TextView txtTime = view.findViewById(R.id.txtTime);
+
         final Post p = list.get(position);
 
         txtTitle.setText(p.getTitle());
         txtTitle.setTextColor(Color.RED);
         txtPrice.setText("Price: "+String.valueOf(p.getPrice()));
         txtPrice.setTextColor(Color.BLUE);
-        Button btnDetail = view.findViewById(R.id.btnDetail);
-        btnDetail.setOnClickListener(new View.OnClickListener() {
+//        Button btnDetail = view.findViewById(R.id.btnDetail);
+//        txtTime.setText(TimeHelper.getTime(p.getCreatedTime()));
+                txtTime.setText(String.valueOf(p.getCreatedTime()));
+
+        RelativeLayout relativeLayout = view.findViewById(R.id.relativeClickable);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Your code here
@@ -78,11 +81,26 @@ public class ListPostAdapter extends BaseAdapter {
 
             }
         });
-        List<String> image = p.getImage();
+//        btnDetail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Your code here
+//                Intent intent = new Intent(activity.getApplicationContext(), DetailActivity.class);
+//                intent.putExtra("post",p);
+//                activity.startActivityForResult(intent, 100);
+//
+//
+//            }
+//        });
+        String image = p.getImages();
+        List<String> images = StringHelper.toList(image, "|");
         imgView = view.findViewById(R.id.imageView);
 
 //        new GetImageFromURL(img).execute(image.get(0));
-        new ProcessImage.GetImageFromURL(imgView).execute(image.get(0));
+        if(images.size()>0) {
+//            images.remove(0);
+            Picasso.get().load(images.get(0)).into(imgView);
+        }
         return view;
 
     }

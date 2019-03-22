@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.fpt.prm.bikeshare.Common.ProcessImage;
-import com.fpt.prm.bikeshare.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,8 +36,10 @@ public class ImageAdapter extends PagerAdapter {
         ImageView imageView = new ImageView(mContext);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //        imageView.setImageResource(mImageIds[position]);
-        new ProcessImage.GetImageFromURL(imageView).execute(imageResource.get(position));
+//        new ProcessImage.GetImageFromURL(imageView).execute(imageResource.get(position));
+        Picasso.get().load(imageResource.get(position)).into(imageView);
         container.addView(imageView, 0);
+
         return imageView;
     }
 

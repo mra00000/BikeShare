@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         BasicTabViewAdapter adapter =
                 new BasicTabViewAdapter(getSupportFragmentManager());
         adapter.addItem(new PostsFragment());
-        adapter.addItem(new HistoryFragment());
-        adapter.addItem(new UserFragment());
+//        adapter.addItem(new HistoryFragment());
+//        adapter.addItem(new UserFragment());
         return adapter;
     }
 

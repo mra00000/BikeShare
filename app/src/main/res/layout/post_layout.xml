@@ -1,85 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeClickable"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/common_google_signin_btn_text_dark_pressed"
-    app:layout_anchorGravity="center_vertical"
-    tools:layout_editor_absoluteY="81dp">
+    android:layout_height="@android:dimen/thumbnail_height"
+    android:background="#ECEFF1"
+    android:orientation="horizontal">
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="107dp"
-        android:layout_marginBottom="5dp"
-        android:background="#ECEFF1"
-        app:layout_constraintBottom_toBottomOf="@+id/btnDetail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDetail"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txtPrice"
-        app:layout_constraintEnd_toStartOf="@+id/txtPrice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtTitlePost"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-    <TextView
-        android:id="@+id/txtTitlePost"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:text="Title"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        android:paddingLeft="15dp">
 
-    <TextView
-        android:id="@+id/txtPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="104dp"
-        android:layout_marginRight="104dp"
-        android:text="Price"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnDetail"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitlePost" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="98dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginRight="21dp"
+            android:foregroundGravity="center"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <Button
-        android:id="@+id/btnDetail"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="14dp"
-        android:gravity="center_vertical|center_horizontal|center"
-        android:text="Detail"
-        app:layout_constraintBottom_toTopOf="@+id/txtPrice"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtPrice"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="149dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTitlePost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:text="Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:gravity="right"
+                    android:text="TextView"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+            <!--<Button-->
+            <!--android:id="@+id/btnDetail"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="36dp"-->
+            <!--android:gravity="center_vertical|center_horizontal|center"-->
+            <!--android:text="Detail"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/txtPrice"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/txtPrice"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <View
         android:id="@+id/divider"
-        android:layout_width="421dp"
+        android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

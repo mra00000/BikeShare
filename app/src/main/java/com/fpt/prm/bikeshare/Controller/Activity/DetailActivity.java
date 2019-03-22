@@ -12,10 +12,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.fpt.prm.bikeshare.Adapter.ImageAdapter;
-import com.fpt.prm.bikeshare.Adapter.ListPostAdapter;
-import com.fpt.prm.bikeshare.Common.ProcessImage;
 import com.fpt.prm.bikeshare.Entity.Post;
+import com.fpt.prm.bikeshare.Helper.StringHelper;
 import com.fpt.prm.bikeshare.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -48,8 +48,9 @@ public class DetailActivity extends AppCompatActivity {
             txtDescription.setText(post.getDescription());
             txtTitle.setTextColor(Color.RED);
             txtPrice.setTextColor(Color.BLUE);
-            final List<String> imageUrls = post.getImage();
-            new ProcessImage.GetImageFromURL(imageView).execute(imageUrls.get(0));
+            final List<String> imageUrls = StringHelper.toList(post.getImages(), "|");
+//            new ProcessImage.GetImageFromURL(imageView).execute(imageUrls.get(0));
+            Picasso.get().load(imageUrls.get(0)).into(imageView);
             moreImage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     // do something, the isChecked will be

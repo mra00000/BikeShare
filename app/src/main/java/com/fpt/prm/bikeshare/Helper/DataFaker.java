@@ -1,9 +1,14 @@
 package com.fpt.prm.bikeshare.Helper;
 
+import android.util.Log;
+
 import com.fpt.prm.bikeshare.Entity.History;
 import com.fpt.prm.bikeshare.Entity.Post;
 import com.fpt.prm.bikeshare.Entity.User;
 
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,17 +30,19 @@ public class DataFaker {
                 new Date()
         );
     }
-    public static List getFakeListPost(){
+    public static List getFakeListPost()  {
+
+
         List<Post> list = new ArrayList<>();
         //TODO get all Post
-        list.add(getFakeBikeDetail(1));
-        list.add(getFakeBikeDetail(2));
-        list.add(getFakeBikeDetail(3));
-        list.add(getFakeBikeDetail(4));
-        list.add(getFakeBikeDetail(5));
-        list.add(getFakeBikeDetail(6));
-        list.add(getFakeBikeDetail(7));
-        list.add(getFakeBikeDetail(8));
+//        list.add(getFakeBikeDetail(1));
+//        list.add(getFakeBikeDetail(2));
+//        list.add(getFakeBikeDetail(3));
+//        list.add(getFakeBikeDetail(4));
+//        list.add(getFakeBikeDetail(5));
+//        list.add(getFakeBikeDetail(6));
+//        list.add(getFakeBikeDetail(7));
+//        list.add(getFakeBikeDetail(8));
 
 
         return list;
@@ -67,18 +74,19 @@ public class DataFaker {
                 new Date()
         );
     }
-    public static Post getFakeBikeDetail(int id) {
-        return new Post(
-                id,
-                1,
-                "Xe Air Blade moi",
-                Arrays.asList(   "http://phutungxemayvn.com/uploadsys/phu-tung-chinh-hieu/phutungxemay/phu-tung-air-blade/catalogue/phu-tung-xe-ab.jpg",
-                        "http://xemaycutragop.com/wp-content/uploads/2018/07/hong-hot-4-phien-ban-xe-dinh-honda-air-blade-2018-11.jpg"),
-
-                "Do xang sau khi thue",
-                1000,
-                new Date(),
-                new Date()
-        );
-    }
+//    public static Post getFakeBikeDetail(int id) {
+////        return new Post(
+////                id,
+////                1,
+////                "Xe Air Blade moi",
+////                Arrays.asList(   "http://phutungxemayvn.com/uploadsys/phu-tung-chinh-hieu/phutungxemay/phu-tung-air-blade/catalogue/phu-tung-xe-ab.jpg",
+////                        "http://xemaycutragop.com/wp-content/uploads/2018/07/hong-hot-4-phien-ban-xe-dinh-honda-air-blade-2018-11.jpg"),
+////
+////                "Do xang sau khi thue",
+////                1000,
+////                new Date(),
+////                new Date()
+////        );
+////    }
+//        return null;
 }

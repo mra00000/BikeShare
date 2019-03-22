@@ -18,8 +18,10 @@ import com.fpt.prm.bikeshare.Entity.Post;
 import com.fpt.prm.bikeshare.Entity.User;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.Helper.DataFaker;
+import com.fpt.prm.bikeshare.Helper.PostRequest;
 import com.fpt.prm.bikeshare.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,20 +30,35 @@ public class PostsFragment extends Fragment {
     private Button btnNewPost;
     User user;
     List<Post>  listPost;
+
+//    public void updateList(List<Post> listPost) {
+//        this.listPost = listPost;
+//        this.updateListPost();
+//    }
+
+    public void updateListPost () {
+
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.listPost = new ArrayList<>();
         this.user = AppEnvironment.getCurrentUser();
-        this.listPost =  DataFaker.getFakeListPost();
+
+
+
     }
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_posts, container, false);
-        this.btnNewPost = v.findViewById(R.id.btnNewPost);
+        View view = inflater.inflate(R.layout.fragment_posts, container, false);
+//        this.view = v;
+        this.btnNewPost = view.findViewById(R.id.btnNewPost);
         this.btnNewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,11 +67,17 @@ public class PostsFragment extends Fragment {
             }
         });
 
-        listPostView = v.findViewById(R.id.listPostsView);
-        ListPostAdapter lpa = new ListPostAdapter( this.getActivity(), R.layout.post_layout, listPost);
-        listPostView.setAdapter(lpa);
+        listPostView = view.findViewById(R.id.listPostsView);
+        ListPostAdapter adapter = new ListPostAdapter(this.getActivity(), R.layout.post_layout, listPost);
+        listPostView.setAdapter(adapter);
+        try {
+            PostRequest.getPostRequest(getActivity().getApplicationContext(), listPost, adapter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return v;
+
+        return view;
     }
 
 
