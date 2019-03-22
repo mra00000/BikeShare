@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 
 /**
@@ -58,9 +59,9 @@ public class UserDAO {
         } else return null;
     }
     
-    public void addUser (User user) throws SQLException {
+    public int addUser (User user) throws SQLException {
         String sql = "insert into Users(name, email, password, phone, balance, created_at, updated_at) values(?,?,?,?,?,?,?)";
-        PreparedStatement pre = connection.prepareStatement(sql);
+        PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pre.setString(1, user.getName());
         pre.setString(2, user.getEmail());
         pre.setString(3, user.getPassword());
@@ -69,7 +70,14 @@ public class UserDAO {
         long currentTimestamp = (new java.util.Date()).getTime();
         pre.setTimestamp(6, new Timestamp(currentTimestamp));
         pre.setTimestamp(7, new Timestamp(currentTimestamp));
-        pre.execute();
+        int ok = pre.executeUpdate();
+        if (ok > 0) {
+            ResultSet rs = pre.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else return -1;
+        }
+        return -1;
     }
     
     public boolean updateUser (User user) throws SQLException {

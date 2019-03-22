@@ -42,7 +42,7 @@ public class TransactionDAO {
     
     public List<Transaction> getTransactionHistory (int userId) throws SQLException {
         List<Transaction> result = new ArrayList<>();
-        String sql = "select * from transactions where user_id = ?";
+        String sql = "select * from transactions where user_id = ? order by created_at";
         PreparedStatement pre = connection.prepareStatement(sql);
         pre.setInt(1, userId);
         ResultSet rs = pre.executeQuery();

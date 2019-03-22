@@ -44,12 +44,13 @@ public class FirebaseHelper {
     }
     
     public static String upload(byte[] image, String name) throws FileNotFoundException, IOException {
+        System.out.println(FirebaseApp.getApps().size());
         if (FirebaseApp.getApps().size() == 0) {
              String credential = "{\n" +
                 "  \"type\": \"service_account\",\n" +
                 "  \"project_id\": \"bikeshare-fb429\",\n" +
-                "  \"private_key_id\": \"6acfa56ab4beb4336990a3b067e7a7a16f4e23aa\",\n" +
-                "  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCpM5BXpgMj3RaO\\nQgbYP0GcuC9sLHfVb93aDur69fbvP7aKJaB2J8oZBi5Xg2bYfmtL5bx3BGDCYI9x\\nWNj/VJNh/zltkpFwDfBDLTjQGW1nngJMDzzsQVpDqgAISiDORh2/9kD4jLOVMrWX\\nuFmt4pJn3m1G8l6roR5GVOrd7xSwrgbultbKuSkk2dMXlHJhgtVVJBC0OKmiHcWK\\n/zUnLE8jaYCw66Xc/RPVRUWXUBKhHxmVPeaVq6wTgmMQbFbFEv8G0ysWpwCQtjfn\\niPpmCsqKMzm4IHhA7uX9nHpkXuRRBwXzcZllK4LDTwoqwmDln9rCUGy2myWHeL/1\\nrTavb4x7AgMBAAECggEAAq73ZM1bnYCbMiOcDEq3pZ61FPHWfV4Ib1JLlId1yBEK\\nVnrjSf42jn5ENqoZrL4XpPzlfTyfXx617QQ4b+ytaChqlOog5AgeVopoHvtzz7AN\\nkZtaQtWg8uj/QQX1R1ka/5I4262dXRE7GJyECdB0XvggRo0qRm4BAaMalO1F0uXv\\nSNr3BeZFHSRZnpYS5yT5U0oxIvU/omNVPmkySiB4VauFwnMzmnALLhG7AimG6AFS\\nIyGM1bsT9Pv0lDigNotwCMZtxFUSCzzYTJuHTASu0dy0bzoi4H40TEwmfjpVRGnd\\nZ9Y02Jr6YLMXHxOFNZqARe4L/pqCfePpfNFsxlT9CQKBgQDaOLDV1T+jMtwJqEiI\\nQxlW2IRMur1l6hpDVAttYIm8CrNI3yIiVc2IG2CWgTVhNTDSZzTNzXf7QvsU1zu/\\nc5oYBKDc5omL1qDnM0kqWyQyn8o2Nop1xzfmABdtv3Tc0Usv8LVW8owXhDW5sAum\\nKsxhROr82xCXQRHncGB934buAwKBgQDGfl12DXGqbs4h0SAP97gEG3R9ZoK2fNd4\\niQaEonmFSHJhUFpoBI56hp3on5y8SrhmPS2ELl5ulgNep5AvT5aB1kFHOi9X1YSp\\nFQ9GOhzqLpZ6f7UnjXeWp/wXLtRXsMTz2GKvW6ocFg6W+bpXAMqcXyxXdt9a0r9I\\niyZ7UyJ6KQKBgFptBXIGZNFmoOFrl2rHizd+jwwQka0qnelqaTXQvCJsuLAorkdW\\nEM4mshaLwife17VISQxC6UX4En0nVz3VVHRBbrs62KJWtOQ5T0c67zv/FNb0MNnv\\nTI2FWjADFxTtsV9TOoGmDkEsaurgNWOM9pYT7eALkstqjlW+Lm3ac1orAoGADDfH\\nBPc64eTEJ2y57oGvAAG4n+dpcFYq5S56Cjv+Aug8siTCC9kL9BrJKYJ5oVVwGEr3\\nvEUmZuQw/OiPhXn+p6tKhVndhCiOa+Hx+L6m/Ps1JAEsY2zfyZQ5fivRwjwNQ300\\nRdr8k5H//+cLQ0O3NPzeu9uDUBHc2FhIXBr36lECgYBIlXTa9/3fKxBvnGAtpc2I\\nkm+F/Rb423B6GNZPkc3SXBYQcZEwLtesKgYHyYJu3az/gqyhoZ8VHCpuEpwpK+pI\\nQxnT6QTWiAuLL2Jdu1RnE/mTEhHuXddwd2RC0j5BWVAMLVEVUpfZ4Reoq/bT8sQB\\nE6UiHXJxCpbhxMClzpbmiQ==\\n-----END PRIVATE KEY-----\\n\",\n" +
+                "  \"private_key_id\": \"eff0d010f42e736cbdb4fd488700cfaf4a99315f\",\n" +
+                "  \"private_key\": \"-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDU0Lm6WSV4lj3M\\nwkfHwLmIbJZEKun2bUf6HbnCXJIMcE0cq5TezfWJzwxtXhjpar/PNwXWS9op8U0g\\nfQOCeLtGuxOm50AqXJU6GI/qEsd9iPZ/wMzdiqxtw+WMM+Y37NLW4DQ8okn4V3HW\\nBRwFq3U4FC0rNY8kTxifz11D5r/fQ88XFsIxIiKg1CeMUfSMYA73JTIsGb17bDHq\\nz1C1rVGk49vO9/NYnaBg9l0/IeK0RSkJIkM+kPqzMRB/KQdCBEw2UPFMtCVuEgdt\\nF9tFik63GbG7UhZOULWxgK84Q6N4v0WCsPNpP52V3P++HKPQiEAl0YZqfSX2iHx6\\nerOw1g7PAgMBAAECggEANvaJYUVw1goHgACVRVPTFxbkYEqtDkX/Fuvic/4wgiHm\\n6Iav9jM/PQ5KaVyqFm7Jhxzw1v3UJIz7nG5tH59KzuO2GZ8UBVzP9acuVAfxmcxr\\nzWbgAj+0dMzpViJ5TOxPL8vL8fUAIbGD5wB+0kAMECW13LkCdSAwfeWycrz/xQtn\\nmmQ6psN5TAcaJy3oG0F3XwbUYO/6AIGdyUZWFly5rYoakFOJqlCpnVea/pbgRhvs\\nu6aaZdm5xUqISLHEGGSB7EkwFoNag0KXiLU4cSAA7QlcPDidR9QQ1iF8fkElvu9D\\ntf0KxMsGNmDcomr9xl5QWclEoOsUwfGtrotCxeQ34QKBgQD0MKKd/irzd29Xs1IX\\n1tw9135OhxkOJXiwbSAUy/6ijs04+OZKfJLt/ANeZ1/dMA/cV2quFvFWaut6lpNr\\nP9aE9ggqJkRTRCtI7sQn4Jw9hk4eYNINuEhe7cqwSUTJCbJ30u41bZae+ESjrhik\\nEt00z3RoG2mVY1d1PG9ihT/TWQKBgQDfG6Jv9WgDZgHk1h/3rIHPmo1G7SRVq2GM\\nZcFkrafJVrRLQgb7UkgLJVEBWb2+S21efLr4RmKic7SL6F81jTnQEmjWKIhOsNtr\\nOkjqI+rcJdczzV/LmMPQbJ5FW6BS+eENnVuUmr6T0HVQyltqptQcqzBIWkXnjndN\\nmVKIyAV2ZwKBgAryazfd/xrvDcTGuzVqYnE7SeRHVi42K9Ts73U/N+kdscGOFvTb\\n5NJaa+Q9iiSmVO+x04x+Zs9S97+FJJK4R+uqA++vy3xYIACjA5QuE5MGhFYETSZk\\nTopC6sVAY58HmkKY6CjpAsmZo6oa0ev5FIWbj0JjiDY0P+V3kh6+jn/xAoGAEcAD\\nFmEx20NcVzZp6KyCz19+aewn/eDaq+7Uigv+01fglDQ2lfwf2zMm1LKtE9ywYNoP\\njf0bj80gyhi8qmgH93Pff1pOLeSIMGm8r1QYNVeVXXuzaWFIAucBWIdHpBJZQ1oH\\nlTUSgHQPQVQ4Ha4UJgvAlaEI+rks6LGQDW3McXUCgYEA6Njld6qYXgT9c2jhwTza\\nLPNYZrJq8eLO8SPMziHqXXpiAlnfSuRsuJU/YUP0Lf5OdJsDwlZiadDkT6axkVDD\\nPdK0ZUW1TRO0Rcw+ed+TNtm+G3abvEBZwzguX9usAeyolzq0yDNTm3TdOKy5uT4Y\\n26bKcqI2RwrE2lVVH3jjkbk=\\n-----END PRIVATE KEY-----\\n\",\n" +
                 "  \"client_email\": \"firebase-adminsdk-0g30i@bikeshare-fb429.iam.gserviceaccount.com\",\n" +
                 "  \"client_id\": \"104714610809059949397\",\n" +
                 "  \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n" +
@@ -64,15 +65,16 @@ public class FirebaseHelper {
                 .build();
              FirebaseApp.initializeApp(options);
         }
+        System.out.println(FirebaseApp.getApps().size());
+        System.out.println(StorageClient.getInstance().bucket());
         Bucket bucket = StorageClient.getInstance().bucket();
         Blob blob = bucket.create(name, image, "IMAGE/PNG");
         URL url = blob.signUrl(365, TimeUnit.DAYS);
         return url.toString();
     }
     
-    public static void main(String[] args) {
-        String s = "|a";
-        System.out.println(s.split("[|]").length);
+    public static void main(String[] args) throws IOException {
+        FirebaseHelper.upload(new byte[3], "test.png");
     }
     
 }

@@ -6,8 +6,11 @@
 package API.Post;
 
 import DAO.PostDAO;
+import Helpers.MyStringHelpers;
 import Model.Post;
 import Services.FirebaseHelper;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -50,7 +53,7 @@ public class CreatePostResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createPost(
+    public Post createPost(
             @FormParam("userId") int userId,
             @FormParam("title") String title,
             @FormParam("description") String description,
@@ -64,23 +67,25 @@ public class CreatePostResource {
             int postId = postDao.createPost(post);
             System.out.println(postId);
             if (postId > 0) {
-                String[] base64Images = images.split("[|]");
+                List<String> base64Images = MyStringHelpers.toList(images, "|");
+                System.out.println(base64Images.size());
                 String postImages = "";
-                for (int i = 0; i < base64Images.length; i++) {
-                    String url = postDao.uploadImage(base64Images[i], postId + "_" + (i + 1) + ".png");
-                    System.out.println(url);
+                for (int i = 0; i < base64Images.size(); i++) {
+                    System.out.println(base64Images.get(i));
+                    String url = postDao.uploadImage(base64Images.get(i), postId + "_" + (i + 1) + ".png");
                     if (!url.equals("")) {
                         postImages = postImages.concat("|").concat(url);
                     }
                 }
                 post = postDao.getPostById(postId);
                 post.setImages(postImages);
+                System.out.println(postImages);
                 boolean ok = postDao.updatePost(post);
                 if (ok) {
-                    return Response.ok().build();
+                    return post;
                 }
             }
         }
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        return null;
     }
 }
