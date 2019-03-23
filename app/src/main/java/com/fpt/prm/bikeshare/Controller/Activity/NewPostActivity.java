@@ -82,6 +82,8 @@ public class NewPostActivity extends AppCompatActivity {
                 }else {
                     StringRequest MyStringRequest = null;
                     try {
+                        btnSend.setText("Posting...");
+                        btnSend.setClickable(false);
                         PostRequest.createPostRequest(getApplicationContext(), title, description, price, images);
 
                     } catch (IOException e) {
@@ -89,7 +91,6 @@ public class NewPostActivity extends AppCompatActivity {
                     }
 
                 }
-
 
 
 

@@ -23,8 +23,8 @@ public class DetailActivity extends AppCompatActivity {
     private TextView txtTitle;
     private TextView txtPrice;
     private TextView txtDescription;
-    private ImageView imageView;
-    private Switch moreImage;
+    private TextView txtTime;
+
     private int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +33,7 @@ public class DetailActivity extends AppCompatActivity {
         txtTitle = (TextView) findViewById(R.id.txtDtitle);
         txtPrice = (TextView) findViewById(R.id.txtDprice);
         txtDescription = (TextView) findViewById(R.id.txtDdescription);
-        imageView = findViewById(R.id.imageViewDetail);
-        moreImage = findViewById(R.id.swMore);
-
+        txtTime = (TextView) findViewById(R.id.txtDTime);
 
         final ViewPager viewPager = findViewById(R.id.viewPager);
         Intent intent = getIntent();
@@ -46,21 +44,13 @@ public class DetailActivity extends AppCompatActivity {
             txtTitle.setText(post.getTitle());
             txtPrice.setText("Price: "+post.getPrice());
             txtDescription.setText(post.getDescription());
-            txtTitle.setTextColor(Color.RED);
+            txtTime.setText(post.getCreatedTime().toString());
             txtPrice.setTextColor(Color.BLUE);
             final List<String> imageUrls = StringHelper.toList(post.getImages(), "|");
 //            new ProcessImage.GetImageFromURL(imageView).execute(imageUrls.get(0));
-            Picasso.get().load(imageUrls.get(0)).into(imageView);
-            moreImage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    // do something, the isChecked will be
-                    // true if the switch is in the On position
-                    if(moreImage.isChecked()){
-                        ImageAdapter ia = new ImageAdapter(getBaseContext(), imageUrls);
-                        viewPager.setAdapter(ia);
-                    }else viewPager.removeAllViews();
-                }
-            });
+
+            ImageAdapter ia = new ImageAdapter(getBaseContext(), imageUrls);
+            viewPager.setAdapter(ia);
 
         }
     }

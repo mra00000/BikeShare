@@ -11,144 +11,148 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="#ECEFF1"
-            android:divider="@color/colorPrimaryDark"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
-            <ImageView
-                android:id="@+id/imageViewDetail"
-                android:layout_width="102dp"
-                android:layout_height="92dp"
-                android:layout_gravity="center"
-                android:layout_margin="20dp"
-                android:layout_x="18dp"
-                android:layout_y="22dp"
-                android:baselineAligned="false"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtDtitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ECEFF1"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_x="0dp"
+                android:layout_y="28dp"
+                android:fontFamily="@font/virgo"
+                android:text="Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txtDtitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_x="0dp"
-                    android:layout_y="28dp"
-                    android:gravity="center_horizontal"
-                    android:text="Title"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#ECEFF1" />
 
-                <TextView
-                    android:id="@+id/txtDdescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_x="124dp"
-                    android:layout_y="60dp"
-                    android:gravity="center"
-                    android:text="Description"
-                    android:textStyle="italic"
-                    app:layout_constraintEnd_toEndOf="@+id/txtDtitle"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewDetail"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDtitle" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/virgo"
+                android:text="Description"
+                android:textAllCaps="false" />
 
-                <TextView
-                    android:id="@+id/txtDprice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_x="123dp"
-                    android:layout_y="91dp"
-                    android:gravity="center"
-                    android:text="Price"
-                    app:layout_constraintStart_toStartOf="@+id/txtDdescription"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDdescription" />
+            <TextView
+                android:id="@+id/txtDdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="60dp"
+                android:layout_x="124dp"
+                android:layout_y="60dp"
+                android:fontFamily="@font/architep"
+                android:text="Description"
+                app:layout_constraintEnd_toEndOf="@+id/txtDtitle"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/txtDtitle" />
 
-            </LinearLayout>
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#ECEFF1" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/virgo"
+                android:text="Publish Time" />
+
+            <TextView
+                android:id="@+id/txtDTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="60dp"
+                android:layout_x="124dp"
+                android:layout_y="60dp"
+                android:fontFamily="@font/architep"
+                android:text="Time"
+                app:layout_constraintEnd_toEndOf="@+id/txtDtitle"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/txtDtitle" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#ECEFF1" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/architep"
+                android:gravity="right"
+                android:text="Swipe to see more image"
+
+                />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="226dp"
+                android:clickable="true">
+
+            </android.support.v4.view.ViewPager>
+
         </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp">
+            android:layout_height="160dp"
+            android:paddingTop="5dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="vertical">
+            <Button
+                android:id="@+id/btnRent"
+                android:layout_width="76dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_x="67dp"
+                android:layout_y="453dp"
+                android:background="@drawable/my_button"
+                android:fontFamily="@font/architep"
+                android:textAllCaps="false"
+                android:text="Rent"
+                android:textColor="@android:color/background_light"
+                tools:layout_editor_absoluteX="224dp"
+                tools:layout_editor_absoluteY="425dp" />
 
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_toEndOf="@+id/txtDprice"
-                    android:layout_x="59dp"
-                    android:layout_y="129dp"
-                    android:isIndicator="true"
-                    app:layout_constraintEnd_toEndOf="@+id/swMore"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDprice" />
+            <TextView
+                android:id="@+id/txtDprice"
+                android:layout_width="144dp"
+                android:layout_height="31dp"
+                android:layout_alignParentRight="true"
+                android:layout_x="123dp"
+                android:layout_y="91dp"
+                android:fontFamily="@font/virgo"
+                android:gravity="center"
+                android:text="Price" />
 
-                <Switch
-                    android:id="@+id/swMore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="14dp"
-                    android:layout_gravity="right"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginEnd="55dp"
-                    android:layout_marginRight="55dp"
-                    android:layout_x="233dp"
-                    android:layout_y="197dp"
-                    android:text="More Image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
-            </LinearLayout>
         </RelativeLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="359dp"
-            android:layout_height="218dp"
-            android:layout_x="28dp"
-            android:layout_y="228dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="232dp">
-
-        </android.support.v4.view.ViewPager>
-
-        <Button
-            android:id="@+id/btnRent"
-            android:layout_width="248dp"
-            android:layout_height="wrap_content"
-            android:layout_x="67dp"
-            android:layout_y="453dp"
-            android:background="@android:color/holo_green_dark"
-            android:text="Rent"
-            android:textColor="@android:color/background_light"
-            tools:layout_editor_absoluteX="224dp"
-            tools:layout_editor_absoluteY="425dp" />
 
     </LinearLayout>
 

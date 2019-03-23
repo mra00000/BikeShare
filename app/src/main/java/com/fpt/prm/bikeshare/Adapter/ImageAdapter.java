@@ -34,10 +34,8 @@ public class ImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(mContext);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//        imageView.setImageResource(mImageIds[position]);
-//        new ProcessImage.GetImageFromURL(imageView).execute(imageResource.get(position));
-        Picasso.get().load(imageResource.get(position)).into(imageView);
+        Picasso.get().load(imageResource.get(position)).resize(container.getMeasuredWidth(), container.getMeasuredHeight()).into(imageView);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(imageView, 0);
 
         return imageView;

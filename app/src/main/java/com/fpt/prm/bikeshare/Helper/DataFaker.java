@@ -10,6 +10,7 @@ import com.fpt.prm.bikeshare.Entity.User;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Array;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -56,23 +57,9 @@ public class DataFaker {
         return list;
     }
     public static History getFakeHistory(int id) {
-        if(id==1)
-        return new History(
-                id,
-                1,
-                "Rent",
-                1,
-                new Date(),
-                new Date()
-        );
-        else return new History(
-                id,
-                1,
-                "Post",
-                1,
-                new Date(),
-                new Date()
-        );
+
+        return new History();
+
     }
 //    public static Post getFakeBikeDetail(int id) {
 ////        return new Post(

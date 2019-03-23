@@ -1,22 +1,39 @@
 package com.fpt.prm.bikeshare.Entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class History {
+
     private int id;
     private int userId;
-    private String action;
     private int postId;
-    private Date created_at;
-    private Date updated_at;
+    private String action;
+    private Timestamp createdTime, lastUpdatedTime;
+    public History() {
+    }
 
-    public History(int id, int userId, String action, int postId, Date created_at, Date updated_at) {
+    public History(int id, int userId, int postId, String action, Timestamp createdTime, Timestamp lastUpdatedTime) {
         this.id = id;
         this.userId = userId;
-        this.action = action;
         this.postId = postId;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+        this.action = action;
+        this.createdTime = createdTime;
+        this.lastUpdatedTime = lastUpdatedTime;
+    }
+
+    public History(int userId, int postId, String action, Timestamp createdTime, Timestamp lastUpdatedTime) {
+        this.userId = userId;
+        this.postId = postId;
+        this.action = action;
+        this.createdTime = createdTime;
+        this.lastUpdatedTime = lastUpdatedTime;
+    }
+
+    public History(int userId, int postId, String action) {
+        this.userId = userId;
+        this.postId = postId;
+        this.action = action;
     }
 
     public int getId() {
@@ -35,14 +52,6 @@ public class History {
         this.userId = userId;
     }
 
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
     public int getPostId() {
         return postId;
     }
@@ -51,19 +60,29 @@ public class History {
         this.postId = postId;
     }
 
-    public Date getCreated_at() {
-        return created_at;
+    public String getAction() {
+        return action;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public Date getUpdated_at() {
-        return updated_at;
+    public Timestamp getCreatedTime() {
+        return createdTime;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
+
+    public Timestamp getLastUpdatedTime() {
+        return lastUpdatedTime;
+    }
+
+    public void setLastUpdatedTime(Timestamp lastUpdatedTime) {
+        this.lastUpdatedTime = lastUpdatedTime;
+    }
+
+
 }

@@ -2,9 +2,11 @@ package com.fpt.prm.bikeshare.Controller.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,27 +27,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostsFragment extends Fragment {
+public class PostsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private ListView listPostView;
     private Button btnNewPost;
+    ListPostAdapter adapter;
     User user;
     List<Post>  listPost;
-
-//    public void updateList(List<Post> listPost) {
-//        this.listPost = listPost;
-//        this.updateListPost();
-//    }
-
-    public void updateListPost () {
-
-    }
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         this.listPost = new ArrayList<>();
         this.user = AppEnvironment.getCurrentUser();
 
-
+        super.onCreate(savedInstanceState);
 
     }
 
@@ -66,19 +60,36 @@ public class PostsFragment extends Fragment {
                 startActivity(t);
             }
         });
-
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         listPostView = view.findViewById(R.id.listPostsView);
-        ListPostAdapter adapter = new ListPostAdapter(this.getActivity(), R.layout.post_layout, listPost);
+
+        adapter = new ListPostAdapter(this.getActivity(), R.layout.post_layout, listPost);
+        getData();
+
         listPostView.setAdapter(adapter);
+        return view;
+    }
+    public void getData(){
         try {
             PostRequest.getPostRequest(getActivity().getApplicationContext(), listPost, adapter);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        return view;
     }
 
+    @Override
+    public void onRefresh() {
+        adapter = (ListPostAdapter) listPostView.getAdapter();
+        getData();
+        listPostView.setAdapter(adapter);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
 
+            }
+        }, 2000);
+    }
 }

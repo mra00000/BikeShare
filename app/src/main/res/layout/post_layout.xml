@@ -1,57 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeClickable"
     android:layout_width="match_parent"
-    android:layout_height="@android:dimen/thumbnail_height"
-    android:background="#ECEFF1"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    android:fontFamily="@font/virgo"
+
     android:orientation="horizontal">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relativeClickable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="120dp"
-            android:layout_height="98dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="7dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginRight="21dp"
-            android:foregroundGravity="center"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:background="@drawable/card_press"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="149dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
 
-            <TextView
-                android:id="@+id/txtTitlePost"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:text="Title"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="182dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/relative_layout_background"
+                >
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:foregroundGravity="center"
+                    android:scaleType="centerCrop"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="5dp">
+
+                <TextView
+                    android:id="@+id/txtTitlePost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="50dp"
+                    android:fontFamily="@font/virgo"
+                    android:text="Title"
+
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txtPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="22dp"
+                    android:fontFamily="@font/virgo"
                     android:text="Price"
                     android:textStyle="bold" />
 
@@ -59,35 +79,30 @@
                     android:id="@+id/txtTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="5dp"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="10dp"
+                    android:fontFamily="@font/architep"
                     android:gravity="right"
+                    android:paddingRight="5dp"
                     android:text="TextView"
                     android:textStyle="italic" />
 
+                <!--<Button-->
+                <!--android:id="@+id/btnDetail"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:gravity="center_vertical|center_horizontal|center"-->
+                <!--android:text="Detail"-->
+                <!--app:layout_constraintBottom_toTopOf="@+id/txtPrice"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toEndOf="@+id/txtPrice"-->
+                <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+
             </LinearLayout>
 
-            <!--<Button-->
-            <!--android:id="@+id/btnDetail"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="36dp"-->
-            <!--android:gravity="center_vertical|center_horizontal|center"-->
-            <!--android:text="Detail"-->
-            <!--app:layout_constraintBottom_toTopOf="@+id/txtPrice"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/txtPrice"-->
-            <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-
         </LinearLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_alignParentBottom="true"
-        android:background="#FFFFFF" />
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>

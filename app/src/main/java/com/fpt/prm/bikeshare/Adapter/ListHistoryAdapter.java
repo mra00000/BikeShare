@@ -48,7 +48,7 @@ public class ListHistoryAdapter extends BaseAdapter {
         TextView txtTime = view.findViewById(R.id.txtHistoryTime);
         TextView txtAction = view.findViewById(R.id.txtAction);
         TextView txtPrice = view.findViewById(R.id.txtHistoryPrice);
-        txtTime.setText(history.getCreated_at().toString());
+        txtTime.setText(history.getCreatedTime().toString());
         txtAction.setText(history.getAction());
 //        txtPrice.setText(history.getPostId());
 

@@ -47,16 +47,15 @@ public class PostRequest {
                 Gson gson = new Gson();
                 Post post = gson.fromJson(response, Post.class);
                 int postId = post.getId();
-                Intent intent = new Intent(context, DetailActivity.class);
 
                 Post p = new Post();
                 try {
                     getPostByIdRequest(context, postId, p);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                intent.putExtra("post", p);
-                context.startActivity(intent);
+
                 //This code is executed if the server responds, whether or not the response contains data.
                 //The String 'response' contains the server's response.
             }
@@ -71,7 +70,7 @@ public class PostRequest {
 //                User user = AppEnvironment.getCurrentUser();
 //                user.getId();
 
-                MyData.put("userId", "2");
+                MyData.put("userId", "3");
                 MyData.put("title", title);
                 MyData.put("token", "123");
                 MyData.put("description", des);
@@ -125,7 +124,7 @@ public static void getPostRequest(Context context, final List<Post> list, final 
     rq.add(myStringRequest);
 
 }
-    public static void getPostByIdRequest(Context context, final int postId, Post post) throws IOException {
+    public static void getPostByIdRequest(final Context context, final int postId, Post post) throws IOException {
         String url = "http://"+ Constanst.ipHost +"/BikeShare/api/postInfo?postId="+postId;
         RequestQueue rq = Volley.newRequestQueue(context);
         StringRequest myStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
@@ -134,7 +133,9 @@ public static void getPostRequest(Context context, final List<Post> list, final 
                 Log.d("responsexxx", response);
                 Gson gson = new Gson();
                 Post post = gson.fromJson(response, Post.class);
-
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("post", post);
+                context.startActivity(intent);
                 Log.d("responsestatus", "ok");
                 //This code is executed if the server responds, whether or not the response contains data.
                 //The String 'response' contains the server's response.
@@ -143,6 +144,7 @@ public static void getPostRequest(Context context, final List<Post> list, final 
             @Override
             public void onErrorResponse(VolleyError error) {
                 //This code is executed if there is an error.
+                Log.e("errorResponse","err1");
             }
         }) {
             protected Map<String, String> getParams() {
