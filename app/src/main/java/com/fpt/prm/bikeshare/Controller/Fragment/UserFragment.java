@@ -19,9 +19,9 @@ public class UserFragment extends Fragment {
     private TextView txtUserName;
     private TextView txtEmail;
     private TextView txtPhone;
-    private TextView txtAddress;
     private TextView txtBalance;
     private Button manageBalance;
+    private Button logout;
     private ImageView userImage;
     User user;
 
@@ -40,15 +40,14 @@ public class UserFragment extends Fragment {
         this.txtUserName = v.findViewById(R.id.txt_user_name);
         this.txtEmail = v.findViewById(R.id.txt_email);
         this.txtPhone = v.findViewById(R.id.txt_phone_number);
-        this.txtAddress = v.findViewById(R.id.txt_address);
         this.txtBalance = v.findViewById(R.id.txt_balance);
         this.manageBalance = v.findViewById(R.id.btn_balance_manage);
+        this.logout = v.findViewById(R.id.btn_logout);
         this.userImage = v.findViewById(R.id.user_image);
 
         this.txtUserName.setText(this.user.getName());
         this.txtEmail.setText(this.user.getEmail());
         this.txtPhone.setText(this.user.getPhone());
-        this.txtAddress.setText(this.user.getAddress());
         this.txtBalance.setText("$" + this.user.getBalance());
 
         this.manageBalance.setOnClickListener(new View.OnClickListener() {

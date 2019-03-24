@@ -18,6 +18,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class UserResource {
     private static final int TOKEN_VERIFICATION_FAILED = -1;
     private static final int USER_NOT_EXIST = 0;
     private static final int USER_VALID = 1;
-    private static final String API_KEY = "300209814116-ksobt2t7jm04dekiagfdj2tldshhb454.apps.googleusercontent.com\n";
+    private static final String API_KEY = "300209814116-ksobt2t7jm04dekiagfdj2tldshhb454.apps.googleusercontent.com";
 
     @Context
     private UriInfo context;
@@ -43,13 +44,11 @@ public class UserResource {
     public UserResource() {}
 
     @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public RequestUserResult getUserInfo(
-        @QueryParam("token") String token
+        @FormParam("token") String token
     ) throws Exception {
-        System.out.println("ahihi");
-        System.out.println(token);
-        System.out.println("ahihi");
         RequestUserResult result = new RequestUserResult();
         HttpTransport transport = new ApacheHttpTransport();
         JsonFactory factory = new JacksonFactory();
@@ -60,8 +59,8 @@ public class UserResource {
         if (idToken != null) {
             GoogleIdToken.Payload payload = idToken.getPayload();
             String email = (String) payload.get("email");
-            UserDAO dao = new UserDAO();
-            User user = dao.getUserByEmail(email);
+            this.userDao = new UserDAO();
+            User user = this.userDao.getUserByEmail(email);
             if (user != null) {
                 result.setStatus(1);
                 result.setData(user);
@@ -73,6 +72,29 @@ public class UserResource {
             result.setStatus(TOKEN_VERIFICATION_FAILED);
         }
         return result;
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String register(
+        @FormParam("name") String name,
+        @FormParam("email") String email,
+        @FormParam("image") String image,
+        @FormParam("phone") String phone
+    ) throws Exception {
+        try {
+            UserResource.this.userDao = new UserDAO();
+            User user = new User();
+            user.setEmail(email);
+            user.setName(name);
+            user.setImage(image);
+            user.setPhone(phone);
+            this.userDao.addUser(user);
+            return "0";
+        } catch (SQLException ex) {
+            return "-1";
+        }
     }
 }
 

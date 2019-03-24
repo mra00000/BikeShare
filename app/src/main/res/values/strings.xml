@@ -25,4 +25,7 @@
     <string name="user_name_placeholder">User name</string>
     <string name="balance_charge_hint">Input card number and card serial to charge money to your balance</string>
     <string name="balance_withdraw_hint">Enter the amount and account number to withdraw to</string>
+
+    <string name="google_api_key">300209814116-ksobt2t7jm04dekiagfdj2tldshhb454.apps.googleusercontent.com
+</string>
 </resources>
