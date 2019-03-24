@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.fpt.prm.bikeshare.Adapter.BasicTabViewAdapter;
 import com.fpt.prm.bikeshare.Controller.Fragment.HistoryFragment;
-import com.fpt.prm.bikeshare.Controller.Fragment.PosstFragment;
+import com.fpt.prm.bikeshare.Controller.Fragment.PostsFragment;
 import com.fpt.prm.bikeshare.Controller.Fragment.UserFragment;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.Helper.DataFaker;
@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
         this.setTabsIcon(tabLayout, adapter.getCount());
     }
 
+
     private BasicTabViewAdapter getViewPagerAdapter() {
         BasicTabViewAdapter adapter =
                 new BasicTabViewAdapter(getSupportFragmentManager());
-        adapter.addItem(new PosstFragment());
+        adapter.addItem(new PostsFragment());
         adapter.addItem(new HistoryFragment());
         adapter.addItem(new UserFragment());
         return adapter;
