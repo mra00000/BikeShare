@@ -72,8 +72,9 @@ public class LoginActivity extends AppCompatActivity
         this.registerTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = signInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_UP);
+                AppEnvironment.setCurrentUser(DataFaker.getFakeUser());
+                Intent t = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(t);
             }
         });
     }
