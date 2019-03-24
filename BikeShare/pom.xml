@@ -4,7 +4,7 @@
 
     <groupId>com.mycompany</groupId>
     <artifactId>BikeShare</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>war</packaging>
 
     <name>BikeShare</name>
@@ -21,18 +21,15 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        
         <dependency>
             <groupId>com.google.firebase</groupId>
             <artifactId>firebase-admin</artifactId>
             <version>6.8.0</version>
         </dependency>
         <dependency>
-            <groupId> com.microsoft.sqlserver.jdbc </groupId>
-            <artifactId> jdbc4 </artifactId>
-            <version> 1.0 </version>
-            <!--<scope> system </scope>-->
-<!--            <systemPath> ${basedir}/src/main/resource/sqljdbc4.jar</systemPath>-->
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.25.0</version>
         </dependency>
     </dependencies>
 

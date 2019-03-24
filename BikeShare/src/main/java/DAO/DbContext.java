@@ -8,6 +8,7 @@ package DAO;
 //import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.naming.Context;
@@ -22,13 +23,12 @@ public class DbContext {
     public Connection getConnection() throws Exception {
         String user = "SA";
         String password = "laVita@123";
-        SQLServerDataSource dataSource = new SQLServerDataSource();
-        dataSource.setUser(user);
-        dataSource.setPassword(password);
-        dataSource.setServerName("localhost");
-        dataSource.setPortNumber(1433);
-        dataSource.setDatabaseName("BikeShare");
-        return dataSource.getConnection();
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Connection connection = DriverManager.getConnection(
+                "jdbc:sqlserver://34.80.20.194:1433;databaseName=BikeShare",
+                user, password
+        );
+        return connection;
     }
     public static void main(String[] args) {
         DbContext db = new DbContext();

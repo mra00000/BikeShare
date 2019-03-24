@@ -14,7 +14,7 @@ import java.sql.Timestamp;
  */
 public class User {
     private int id;
-    private String name, phone, email, password;
+    private String name, phone, email, password, image;
     private double balance;
     private Timestamp createdTime, lastUpdatedTime;
     public User() {
@@ -87,6 +87,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public double getBalance() {
