@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 
 /**
@@ -58,9 +59,9 @@ public class UserDAO {
         } else return null;
     }
     
-    public void addUser (User user) throws SQLException {
+    public int addUser (User user) throws SQLException {
         String sql = "insert into Users(name, email, password, phone, balance, created_at, updated_at) values(?,?,?,?,?,?,?)";
-        PreparedStatement pre = connection.prepareStatement(sql);
+        PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pre.setString(1, user.getName());
         pre.setString(2, user.getEmail());
         pre.setString(3, "");
@@ -69,7 +70,30 @@ public class UserDAO {
         long currentTimestamp = (new java.util.Date()).getTime();
         pre.setTimestamp(6, new Timestamp(currentTimestamp));
         pre.setTimestamp(7, new Timestamp(currentTimestamp));
-        pre.execute();
+        int ok = pre.executeUpdate();
+        if (ok > 0) {
+            ResultSet rs = pre.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else return -1;
+        }
+        return -1;
+    }
+    
+    public boolean updateUser (User user) throws SQLException {
+        String sql = "update users "
+                + "set name = ?, email = ?, password = ?, balance = ?, created_at = ?, updated_at = ? "
+                + "where id = ?";
+        PreparedStatement pre = connection.prepareStatement(sql);
+        pre.setString(1, user.getName());
+        pre.setString(2, user.getEmail());
+        pre.setString(3, user.getPassword());
+        pre.setDouble(4, user.getBalance());
+        pre.setTimestamp(5, user.getCreatedTime());
+        pre.setTimestamp(6, user.getLastUpdatedTime());
+        pre.setInt(7, user.getId());
+        boolean ok = pre.execute();
+        return ok;
     }
     
     public boolean isExisted (String email) throws SQLException {
@@ -79,7 +103,9 @@ public class UserDAO {
     public static void main(String[] args) throws Exception {
         UserDAO dao = new UserDAO();
         try {
-            System.out.println(dao.isExisted("ahcl@gmail.com"));
+            long time = (new java.util.Date()).getTime();
+            User user = new User(2, "duong", "0932585101", "ahcl@gmail.com", "123122", 123122.0, new Timestamp(time), new Timestamp(time));
+            dao.updateUser(user);
         } catch (Exception e) {
             e.printStackTrace();
         }

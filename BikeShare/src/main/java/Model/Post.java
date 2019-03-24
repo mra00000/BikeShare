@@ -50,6 +50,17 @@ public class Post {
         this.createdTime = createdTime;
         this.lastUpdatedTime = lastUpdatedTime;
     }
+    
+    public Post(int userId, String title, String description, String images, double price) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.images = images;
+        this.price = price;
+        this.createdTime = createdTime;
+        this.lastUpdatedTime = lastUpdatedTime;
+    }
 
     public int getId() {
         return id;

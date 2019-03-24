@@ -7,12 +7,13 @@ package API.Post;
 
 import DAO.PostDAO;
 import Model.Post;
-import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
@@ -21,32 +22,28 @@ import javax.ws.rs.core.MediaType;
  *
  * @author ahcl
  */
-@Path("posts")
-public class PostsResource {
+@Path("postInfo")
+public class PostInfoResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of PostsResource
+     * Creates a new instance of PostInfoResource
      */
-    public PostsResource() {
+    public PostInfoResource() {
     }
 
     /**
-     * Retrieves representation of an instance of API.Post.PostsResource
+     * Retrieves representation of an instance of API.Post.PostInfoResource
      * @return an instance of java.lang.String
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Post> getPosts(
-        @QueryParam("page") int page,
-        @QueryParam("pageSize") int size
-    ) throws Exception {
-        //TODO return proper representation object
+    public Post getPostInfo(@QueryParam("postId") int postId) throws Exception {
         PostDAO postDao = new PostDAO();
-        List<Post> posts = postDao.getPostsByPage(page, size);
-        return posts;
+        return postDao.getPostById(postId);
+//        return postId + "";
     }
 
 }

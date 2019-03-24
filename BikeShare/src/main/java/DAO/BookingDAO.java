@@ -29,7 +29,7 @@ interface BookingStruct {
     public static final String USER_ID = "user_id";
     public static final String ACTION = "action";
     public static final String POST_ID = "post_id";
-    public static final String CREATE_AT = "created_at";
+    public static final String CREATED_AT = "created_at";
     public static final String UPDATED_AT = "updated_at";
 
 }
@@ -49,28 +49,28 @@ public class BookingDAO {
             int userId = rs.getInt(BookingStruct.USER_ID);
             String action = rs.getString(BookingStruct.ACTION);
             int postId = rs.getInt(BookingStruct.POST_ID);
-            Timestamp createdTime = rs.getTimestamp(PostStruct.CREATE_AT);
-            Timestamp lastUpdatedTime = rs.getTimestamp(PostStruct.UPDATED_AT);
+            Timestamp createdTime = rs.getTimestamp(BookingStruct.CREATED_AT);
+            Timestamp lastUpdatedTime = rs.getTimestamp(BookingStruct.UPDATED_AT);
             return new Booking(id, userId, postId, action, createdTime, lastUpdatedTime);
         } else return null;
     }
     
-    public void createBooking (Booking booking) throws SQLException {
+    public int createBooking (Booking booking) throws SQLException {
         String sql = "insert into share_history (user_id, action, post_id, created_at, updated_at) values(?,?,?,?,?)";
-        PreparedStatement pre = connection.prepareStatement(sql);
+        PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pre.setInt(1, booking.getUserId());
         pre.setString(2, booking.getAction());
         pre.setInt(3, booking.getPostId());
         long currentTimestamp = (new java.util.Date()).getTime();
         pre.setTimestamp(4, new Timestamp(currentTimestamp));
         pre.setTimestamp(5, new Timestamp(currentTimestamp));
-        pre.execute();
+        int ok = pre.executeUpdate();
+        if (ok > 0) {
+            ResultSet rs = pre.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return -1;
     }
-    
-    
-//    public boolean isExisted (String email) throws SQLException {
-//        return (this.getUser(email) != null);
-//    }
     
     public List<Booking> getAllBooking () throws SQLException {
         List<Booking> result = new ArrayList<>();
@@ -82,8 +82,8 @@ public class BookingDAO {
             int userId = rs.getInt(BookingStruct.USER_ID);
             String action = rs.getString(BookingStruct.ACTION);
             int postId = rs.getInt(BookingStruct.POST_ID);
-            Timestamp createdTime = rs.getTimestamp(PostStruct.CREATE_AT);
-            Timestamp lastUpdatedTime = rs.getTimestamp(PostStruct.UPDATED_AT);
+            Timestamp createdTime = rs.getTimestamp(BookingStruct.CREATED_AT);
+            Timestamp lastUpdatedTime = rs.getTimestamp(BookingStruct.UPDATED_AT);
             result.add(new Booking(id, userId, postId, action, createdTime, lastUpdatedTime));
         }
         return result;
@@ -99,8 +99,8 @@ public class BookingDAO {
             int id = rs.getInt(BookingStruct.ID);
             String action = rs.getString(BookingStruct.ACTION);
             int postId = rs.getInt(BookingStruct.POST_ID);
-            Timestamp createdTime = rs.getTimestamp(PostStruct.CREATE_AT);
-            Timestamp lastUpdatedTime = rs.getTimestamp(PostStruct.UPDATED_AT);
+            Timestamp createdTime = rs.getTimestamp(BookingStruct.CREATED_AT);
+            Timestamp lastUpdatedTime = rs.getTimestamp(BookingStruct.UPDATED_AT);
             result.add(new Booking(id, userId, postId, action, createdTime, lastUpdatedTime));
         }
         return result;
@@ -110,7 +110,7 @@ public class BookingDAO {
     public static void main(String[] args) throws Exception {
         BookingDAO dao = new BookingDAO();
         try {
-            List<Booking> list = dao.getBookingHistory(3);
+            List<Booking> list = dao.getBookingHistory(2);
             System.out.println(list.get(0).getId());
         } catch (Exception e) {
             e.printStackTrace();
