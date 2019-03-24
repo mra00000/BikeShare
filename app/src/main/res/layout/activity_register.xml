@@ -53,14 +53,6 @@
             android:layout_weight="1"
             android:hint="@string/signup_phone" />
 
-        <EditText
-            android:id="@+id/edit_sign_up_address"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:inputType="text|textMultiLine"
-            android:hint="@string/signup_address" />
-
         <Button
             android:id="@+id/btn_register"
             android:layout_width="150dp"

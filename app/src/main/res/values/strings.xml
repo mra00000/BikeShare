@@ -15,7 +15,7 @@
     <string name="google_signIn_prompt">Sign in with your Google account</string>
     <string name="register_username_placeholder">Welcome, New User</string>
     <string name="register_username">Welcome, %1$s</string>
-    <string name="register_more_info">Before we continue, we need some more information</string>
+    <string name="register_more_info">Before we continue, we need your phone number</string>
     <string name="signup_phone">Phone number</string>
     <string name="signup_address">Address</string>
     <string name="signup_done_btn">Next</string>

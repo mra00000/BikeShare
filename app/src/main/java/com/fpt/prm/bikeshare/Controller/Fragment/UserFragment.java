@@ -3,6 +3,7 @@ package com.fpt.prm.bikeshare.Controller.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fpt.prm.bikeshare.Controller.Activity.BalanceManageActivity;
+import com.fpt.prm.bikeshare.Controller.Activity.LoginActivity;
 import com.fpt.prm.bikeshare.Entity.User;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.R;
+import com.squareup.picasso.Picasso;
 
 public class UserFragment extends Fragment {
     private TextView txtUserName;
@@ -57,6 +60,20 @@ public class UserFragment extends Fragment {
                 startActivity(t);
             }
         });
+
+        this.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppEnvironment.getGoogleSignInClient().signOut();
+                Intent t = new Intent(getContext(), LoginActivity.class);
+                startActivity(t);
+            }
+        });
+
+        Picasso.get()
+                .load(this.user.getImage())
+                .resize(300, 300)
+                .into(this.userImage);
         return v;
     }
 }

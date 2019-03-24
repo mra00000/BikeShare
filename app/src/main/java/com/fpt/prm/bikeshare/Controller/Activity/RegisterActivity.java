@@ -16,6 +16,7 @@ import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.Helper.HttpDataTransport;
 import com.fpt.prm.bikeshare.Model.UserModel;
 import com.fpt.prm.bikeshare.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
@@ -38,9 +39,9 @@ public class RegisterActivity extends AppCompatActivity
 
         this.welcomeTxt = findViewById(R.id.txt_welcome);
         this.userPhone = findViewById(R.id.edit_sign_up_phone);
-        this.userAddress = findViewById(R.id.edit_sign_up_address);
         this.btnRegisyer = findViewById(R.id.btn_register);
         this.btnRegisyer.setOnClickListener(this);
+        this.userImage = findViewById(R.id.user_image);
 
 
         Intent t = this.getIntent();
@@ -48,6 +49,10 @@ public class RegisterActivity extends AppCompatActivity
 
         this.welcomeTxt.setText(String.format(getResources().getString(R.string.register_username), signUpData.getString("name")));
 
+        Picasso.get()
+                .load(signUpData.getString("image"))
+                .resize(300, 300)
+                .into(this.userImage);
         // Todo: validate user input
         // Todo: Check email address on server
     }
