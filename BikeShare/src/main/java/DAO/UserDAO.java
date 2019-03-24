@@ -64,7 +64,7 @@ public class UserDAO {
         PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pre.setString(1, user.getName());
         pre.setString(2, user.getEmail());
-        pre.setString(3, user.getPassword());
+        pre.setString(3, "");
         pre.setString(4, user.getPhone());
         pre.setDouble(5, 0.0);
         long currentTimestamp = (new java.util.Date()).getTime();

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Controller.Activity.DetailActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_google_signin_btn_text_dark_default"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:id="@+id/txtDtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_x="0dp"
+                android:layout_y="28dp"
+                android:fontFamily="@font/virgo"
+                android:text="Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#ECEFF1" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/virgo"
+                android:text="Description"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/txtDdescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="60dp"
+                android:layout_x="124dp"
+                android:layout_y="60dp"
+                android:fontFamily="@font/architep"
+                android:text="Description"
+                app:layout_constraintEnd_toEndOf="@+id/txtDtitle"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/txtDtitle" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#ECEFF1" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/virgo"
+                android:text="Publish Time" />
+
+            <TextView
+                android:id="@+id/txtDTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="60dp"
+                android:layout_x="124dp"
+                android:layout_y="60dp"
+                android:fontFamily="@font/architep"
+                android:text="Time"
+                app:layout_constraintEnd_toEndOf="@+id/txtDtitle"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toBottomOf="@+id/txtDtitle" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#ECEFF1" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/architep"
+                android:gravity="right"
+                android:text="Swipe to see more image"
+
+                />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="226dp"
+                android:clickable="true">
+
+            </android.support.v4.view.ViewPager>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:paddingTop="5dp">
+
+            <Button
+                android:id="@+id/btnRent"
+                android:layout_width="76dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_x="67dp"
+                android:layout_y="453dp"
+                android:background="@drawable/my_button"
+                android:fontFamily="@font/architep"
+                android:textAllCaps="false"
+                android:text="Rent"
+                android:textColor="@android:color/background_light"
+                tools:layout_editor_absoluteX="224dp"
+                tools:layout_editor_absoluteY="425dp" />
+
+            <TextView
+                android:id="@+id/txtDprice"
+                android:layout_width="144dp"
+                android:layout_height="31dp"
+                android:layout_alignParentRight="true"
+                android:layout_x="123dp"
+                android:layout_y="91dp"
+                android:fontFamily="@font/virgo"
+                android:gravity="center"
+                android:text="Price" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

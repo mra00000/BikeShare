@@ -7,12 +7,11 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentTop="true" />
     <android.support.v4.view.ViewPager
-        android:id="@+id/home_view_pager"
+        android:id="@+id/balance_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_above="@id/tab_layout"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_layout"
         android:background="@android:color/white" />
 </RelativeLayout>

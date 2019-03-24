@@ -65,6 +65,7 @@ public class uploadImageResource {
     )throws IOException, Exception {
         PostDAO postDao = new PostDAO();
         Post post = postDao.getPostById(postId);
+        if (post == null) return Response.status(Response.Status.BAD_REQUEST).build();
         int index = post.getImages().split("[|]").length;
         String url = postDao.uploadImage(base64Image, postId + "_" + index + ".png");
         if (!url.equals("")) post.setImages(post.getImages().concat("|").concat(url));

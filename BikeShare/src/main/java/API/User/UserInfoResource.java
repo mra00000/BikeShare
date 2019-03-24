@@ -8,8 +8,16 @@ package API.User;
 import DAO.UserDAO;
 import Model.User;
 import Services.FirebaseHelper;
-import com.google.gson.Gson;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport;
+import com.google.api.client.json.jackson.JacksonFactory;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
@@ -17,6 +25,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * REST Web Service
@@ -24,34 +35,8 @@ import javax.ws.rs.PUT;
  * @author ahcl
  */
 
-class userInfoQuery {
-    private String email, token;
 
-    public userInfoQuery() {
-    }
 
-    public userInfoQuery(String email, String token) {
-        this.email = email;
-        this.token = token;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-}
 @Path("userInfo")
 public class UserInfoResource {
 
@@ -68,14 +53,6 @@ public class UserInfoResource {
      * Retrieves representation of an instance of API.User.UserInfoResource
      * @return an instance of java.lang.String
      */
-    @GET
-    @Produces("application/json")
-    public userInfoQuery getJson() {
-        return new userInfoQuery("asdf", "asdf");
-        //TODO return proper representation object
-   //     throw new UnsupportedOperationException();
-    }
-
     /**
      * PUT method for updating or creating an instance of UserInfoResource
      * @param content representation for the resource
@@ -87,18 +64,18 @@ public class UserInfoResource {
     }
     
     @POST
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces("application/json")
-    public User getInfo(userInfoQuery query) throws Exception {
+    public User getInfo(
+        @FormParam("token") String token,
+        @FormParam("userId") int userId
+    ) throws Exception {
         userDao = new UserDAO();
-        String email = query.getEmail();
-        String token = query.getToken();
         if (!FirebaseHelper.checkAuthentication(token).equals("")) {
-            User userInfo = userDao.getUserByEmail(email);
+            User userInfo = userDao.getUserById(userId);
             return userInfo;
         } else {
             return null;
-            // may return status + message
         }
     }
 }
