@@ -63,6 +63,9 @@ public class CreateBookingResource {
             Booking booking = new Booking(userId, postId, BookingAction.RENT);
             
             Post post = postDao.getPostById(postId);
+            if (post.getUserId() == userId) {
+                return new CreateBookingResponse(CreateBookingResponse.FAILED, "Wow, you are doing the magical thing!");
+            }
             if (post == null) {
                 return new CreateBookingResponse(CreateBookingResponse.FAILED, "Post is not valid");
             } else {

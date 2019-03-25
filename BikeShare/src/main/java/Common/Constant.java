@@ -10,7 +10,7 @@ package Common;
  * @author ahcl
  */
 public class Constant {
-    public final static double PROFIT_RATE = 20.0 / 100;
+    public final static double PROFIT_RATE = 15.0 / 100;
     public static void main(String[] args) {
         System.out.println(Constant.PROFIT_RATE);
     }
