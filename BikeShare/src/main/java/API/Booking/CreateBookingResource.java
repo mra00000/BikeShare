@@ -10,6 +10,7 @@ import DAO.BookingDAO;
 import DAO.PostDAO;
 import DAO.UserDAO;
 import Model.Booking;
+import Model.BookingAction;
 import Model.Post;
 import Model.User;
 import Services.FirebaseHelper;
@@ -50,8 +51,7 @@ public class CreateBookingResource {
     public CreateBookingResponse createBooking(
         @FormParam("token") String token,
         @FormParam("userId") int userId,
-        @FormParam("postId") int postId,
-        @FormParam("action") String action
+        @FormParam("postId") int postId
     ) throws Exception {
         UserDAO userDao = new UserDAO();
         User user = userDao.getUserById(userId);
@@ -60,7 +60,7 @@ public class CreateBookingResource {
             //TODO check that token 's owner is userId
             BookingDAO bookingDao = new BookingDAO();
             PostDAO postDao = new PostDAO();
-            Booking booking = new Booking(userId, postId, action);
+            Booking booking = new Booking(userId, postId, BookingAction.RENT);
             
             Post post = postDao.getPostById(postId);
             if (post == null) {
