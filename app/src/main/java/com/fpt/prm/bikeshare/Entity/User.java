@@ -10,11 +10,11 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String image;
-    private int balance;
+    private double balance;
     private Date created_at;
     private Date updated_at;
 
-    public User(int id, String name, String password, String email, String phone, String image, int balance, Date created_at, Date updated_at) {
+    public User(int id, String name, String password, String email, String phone, String image, double balance, Date created_at, Date updated_at) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -74,11 +74,11 @@ public class User implements Serializable {
         this.image = image;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

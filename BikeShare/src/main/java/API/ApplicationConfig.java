@@ -38,6 +38,7 @@ public class ApplicationConfig extends Application {
         resources.add(API.Post.PostsResource.class);
         resources.add(API.Post.uploadImageResource.class);
         resources.add(API.Transaction.TransactionHistoryResource.class);
+        resources.add(API.Transaction.Transactions.class);
         resources.add(API.User.UserInfoResource.class);
         resources.add(API.User.UserResource.class);
     }

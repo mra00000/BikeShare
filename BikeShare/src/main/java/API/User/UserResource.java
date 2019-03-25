@@ -7,6 +7,7 @@ package API.User;
 
 import DAO.UserDAO;
 import Model.User;
+import Services.GoogleOauthService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
@@ -53,15 +54,8 @@ public class UserResource {
         @FormParam("token") String token
     ) throws Exception {
         RequestUserResult result = new RequestUserResult();
-        HttpTransport transport = new ApacheHttpTransport();
-        JsonFactory factory = new JacksonFactory();
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, factory)
-                .setAudience(Collections.singletonList(API_KEY))
-                .build();
-        GoogleIdToken idToken = verifier.verify(token);
-        if (idToken != null) {
-            GoogleIdToken.Payload payload = idToken.getPayload();
-            String email = (String) payload.get("email");
+        String email = GoogleOauthService.getEmailByIdToken(token);
+        if (email != null) {
             this.userDao = new UserDAO();
             User user = this.userDao.getUserByEmail(email);
             if (user != null) {

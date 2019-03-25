@@ -83,6 +83,7 @@
                 <version>2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>${artifactId}</warName>
                 </configuration>
             </plugin>
             <plugin>

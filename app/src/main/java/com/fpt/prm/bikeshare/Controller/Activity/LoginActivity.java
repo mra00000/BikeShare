@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity
                 .requestEmail()
                 .build();
         signInClient = GoogleSignIn.getClient(this, gso);
+        AppEnvironment.setGoogleSignInClient(signInClient);
         // Check if there has any signed user
         this.account = GoogleSignIn.getLastSignedInAccount(this);
         if (this.account != null) {
@@ -72,8 +73,9 @@ public class LoginActivity extends AppCompatActivity
         this.registerTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = signInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_UP);
+                AppEnvironment.setCurrentUser(DataFaker.getFakeUser());
+                Intent t = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(t);
             }
         });
     }
@@ -144,6 +146,7 @@ public class LoginActivity extends AppCompatActivity
                 Gson gson = new Gson();
                 String dataJson = root.getJSONObject("data").toString();
                 User user = gson.fromJson(dataJson, User.class);
+                user.setImage(this.account.getPhotoUrl().toString());
                 AppEnvironment.setCurrentUser(user);
                 Intent t = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(t);
