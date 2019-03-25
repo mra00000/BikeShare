@@ -29,10 +29,11 @@
                 android:layout_marginTop="12dp"
                 android:layout_x="12dp"
                 android:layout_y="15dp"
-                android:text="BIKESHARE"
+                android:fontFamily="@font/vcooperb"
+                android:text="BikeShare"
+                android:textColor="#008000"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/virgo"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="588dp" />
 
@@ -47,7 +48,7 @@
                 android:layout_x="283dp"
                 android:layout_y="0dp"
                 android:background="@drawable/my_button"
-                android:fontFamily="@font/architep"
+                android:fontFamily="@font/seguiemj"
                 android:gravity="center_vertical|center_horizontal|center"
                 android:text="@string/add_new_post"
                 android:textAllCaps="false"

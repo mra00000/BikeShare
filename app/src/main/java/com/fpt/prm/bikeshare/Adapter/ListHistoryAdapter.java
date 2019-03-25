@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.fpt.prm.bikeshare.Entity.History;
 import com.fpt.prm.bikeshare.Entity.Post;
+import com.fpt.prm.bikeshare.Model.HistoryResponseModel;
 import com.fpt.prm.bikeshare.R;
 
 import java.util.List;
@@ -15,9 +16,9 @@ import java.util.List;
 public class ListHistoryAdapter extends BaseAdapter {
     private Activity activity;
     private int layout;
-    private List<History> list;
+    private List<HistoryResponseModel> list;
 
-    public ListHistoryAdapter(Activity activity, int layout, List<History> list) {
+    public ListHistoryAdapter(Activity activity, int layout, List<HistoryResponseModel> list) {
         this.activity = activity;
         this.layout = layout;
         this.list = list;
@@ -44,11 +45,11 @@ public class ListHistoryAdapter extends BaseAdapter {
         if(view == null) {
             view = activity.getLayoutInflater().inflate(layout, null);
         }
-        History history = list.get(position);
+        HistoryResponseModel history = list.get(position);
         TextView txtTime = view.findViewById(R.id.txtHistoryTime);
         TextView txtAction = view.findViewById(R.id.txtAction);
         TextView txtPrice = view.findViewById(R.id.txtHistoryPrice);
-        txtTime.setText(history.getCreatedTime().toString());
+        txtTime.setText(history.getPhone());
         txtAction.setText(history.getAction());
 //        txtPrice.setText(history.getPostId());
 

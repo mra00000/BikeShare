@@ -60,6 +60,9 @@ public class LoginActivity extends AppCompatActivity
         this.account = GoogleSignIn.getLastSignedInAccount(this);
         if (this.account != null) {
             this.userModel.findUserByGoogleToken(account.getIdToken(), LoginActivity.this);
+            AppEnvironment.setGoogleSignInAccount(this.account);
+            String s = AppEnvironment.getGoogleSignInAccount().getIdToken();
+            Log.d("m","n");
         }
         this.signInButton = findViewById(R.id.sign_in_btn);
         this.signInButton.setOnClickListener(new View.OnClickListener() {

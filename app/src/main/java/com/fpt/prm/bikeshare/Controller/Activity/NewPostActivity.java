@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,14 +20,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.fpt.prm.bikeshare.Common.Constanst;
 import com.fpt.prm.bikeshare.Common.ProcessImage;
+import com.fpt.prm.bikeshare.Entity.Post;
+import com.fpt.prm.bikeshare.Entity.User;
+import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.Helper.PostRequest;
 import com.fpt.prm.bikeshare.Helper.StringHelper;
 import com.fpt.prm.bikeshare.R;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewPostActivity extends AppCompatActivity {
     private EditText txtTitle;
@@ -36,6 +49,7 @@ public class NewPostActivity extends AppCompatActivity {
     private Button btnPick;
     private Button btnRemove;
     private TextView txtImageCount;
+    RequestQueue rq;
     private ArrayList filePaths = new ArrayList<String>();
     private static final int  REQUEST_GET_SINGLE_FILE = 1;
     private String[] galleryPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -50,6 +64,7 @@ public class NewPostActivity extends AppCompatActivity {
         this.btnPick = findViewById(R.id.btnPickImage);
         this.btnRemove = findViewById(R.id.btnRemoveImage);
         this.txtImageCount = findViewById(R.id.txtPickedCount);
+        rq = Volley.newRequestQueue(this);
         this.btnPick.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -77,23 +92,26 @@ public class NewPostActivity extends AppCompatActivity {
                 String price = txtPrice.getText().toString();
                 String images = StringHelper.join("|", filePaths);
 
-                if(title.equals("") || description.equals("") || price.equals("")){
+                if(title.equals("") || description.equals("") || price.equals("") || images.equals("")){
                     Toast.makeText( NewPostActivity.this, "You must fill all blank", Toast.LENGTH_SHORT).show();
-                }else {
-                    StringRequest MyStringRequest = null;
-                    try {
-                        btnSend.setText("Posting...");
-                        btnSend.setClickable(false);
-                        PostRequest.createPostRequest(getApplicationContext(), title, description, price, images);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
+                    if ( images.equals("")) txtImageCount.setTextColor(Color.RED);
+                    return;
                 }
 
+                if(Double.parseDouble(price)<100){
+                    Toast.makeText( NewPostActivity.this, "Minimum price is $100", Toast.LENGTH_SHORT).show();
+                    txtPrice.setText("100");
+                }else {
+                StringRequest MyStringRequest = null;
+                try {
+                    txtImageCount.setTextColor(Color.GRAY);
+                    btnSend.setText("Posting...");
+                    btnSend.setClickable(false);
+                    createPostRequest(title, description, price, images);
 
-
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }}
             }
         });
     }
@@ -148,5 +166,78 @@ public class NewPostActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+    public  void createPostRequest(final String title, final String des, final String price, final String image) throws IOException {
+        String url = "http://"+ Constanst.ipHost +"/BikeShare/api/createPost";
+        //rq = Volley.newRequestQueue(context);
+
+        StringRequest myStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                Post post = gson.fromJson(response, Post.class);
+                int postId = post.getId();
+                Intent intent = new Intent(NewPostActivity.this, DetailActivity.class);
+                intent.putExtra("post", post);
+                startActivity(intent);
+                finish();
+//                try {
+//                    getPostByIdRequest(postId);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                User user = AppEnvironment.getCurrentUser();
+                String id = String.valueOf(user.getId());
+                String token = AppEnvironment.getGoogleSignInAccount().getIdToken();
+                MyData.put("userId", id);
+                MyData.put("title", title);
+                MyData.put("token", token);
+                MyData.put("description", des);
+                MyData.put("price", price);
+                MyData.put("images", image);
+                return MyData;
+            }
+        };
+
+        rq.add(myStringRequest);
+    }
+    public void getPostByIdRequest(final int postId) throws IOException {
+        String url = "http://"+ Constanst.ipHost +"/BikeShare/api/postInfo?postId="+postId;
+        //RequestQueue rq = Volley.newRequestQueue(context);
+        StringRequest myStringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+//                Gson gson = new Gson();
+//                Post post = gson.fromJson(response, Post.class);
+//                Intent intent = new Intent(NewPostActivity.this, DetailActivity.class);
+//                intent.putExtra("post", post);
+//                startActivity(intent);
+//                finish();
+                //This code is executed if the server responds, whether or not the response contains data.
+                //The String 'response' contains the server's response.
+            }
+        }, new Response.ErrorListener() { //Create an error listener to handle errors appropriately.
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //This code is executed if there is an error.
+                Log.e("errorResponse","err1");
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                Map<String, String> MyData = new HashMap<String, String>();
+                return MyData;
+            }
+        };
+        rq.add(myStringRequest);
+
     }
 }

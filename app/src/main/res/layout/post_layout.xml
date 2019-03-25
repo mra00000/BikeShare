@@ -57,21 +57,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="50dp"
-                    android:fontFamily="@font/virgo"
+                    android:fontFamily="@font/seguiemj"
                     android:text="Title"
 
+                    android:textColor="#008000"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/txtPrice"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="22dp"
-                    android:fontFamily="@font/virgo"
+                    android:layout_marginBottom="30dp"
+                    android:fontFamily="@font/seguiemj"
+                    android:text="Description" />
+
+                <TextView
+                    android:id="@+id/txtPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="35dp"
+                    android:fontFamily="@font/seguiemj"
                     android:text="Price"
                     android:textStyle="bold" />
 
@@ -80,9 +88,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="false"
-                    android:layout_marginTop="30dp"
                     android:layout_marginRight="10dp"
-                    android:fontFamily="@font/architep"
+                    android:fontFamily="@font/seguiemj"
                     android:gravity="right"
                     android:paddingRight="5dp"
                     android:text="TextView"

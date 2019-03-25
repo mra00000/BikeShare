@@ -4,12 +4,15 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class TimeHelper {
     public static String getTime(Timestamp timestamp){
 
             SimpleDateFormat dateFormat = new SimpleDateFormat(
                     "yyyy-MM-dd HH:mm:ss");
+            TimeZone tz = TimeZone.getDefault();
+            dateFormat.setTimeZone(tz);
             Date firstParsedDate = null;
             long diff = 0;
             try {

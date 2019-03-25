@@ -13,6 +13,7 @@ import com.android.volley.toolbox.Volley;
 import com.fpt.prm.bikeshare.Common.Constanst;
 import com.fpt.prm.bikeshare.Entity.History;
 import com.fpt.prm.bikeshare.Entity.Post;
+import com.fpt.prm.bikeshare.Model.HistoryResponseModel;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -23,12 +24,29 @@ import java.util.List;
 import java.util.Map;
 
 public class HistoryRequest {
-    public static void getHistoryRequest(Context context, final int userId, final List<History> list, final BaseAdapter adapter) throws IOException {
+    private List<History> histories;
+
+    public HistoryRequest(List<History> histories) {
+        this.histories = histories;
+    }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public static void getHistoryRequest(Context context, final String token, final int userId, final List<HistoryResponseModel> list, final BaseAdapter adapter) throws IOException {
+
         String url = "http://"+ Constanst.ipHost +"/BikeShare/api/bookingHistory";
         RequestQueue rq = Volley.newRequestQueue(context);
         StringRequest myStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Gson gson = new Gson();
+                List<HistoryResponseModel> histories = new ArrayList(Arrays.asList(gson.fromJson(response, HistoryResponseModel[].class)));
+                list.clear();
+                for(HistoryResponseModel history : histories){
+                    list.add(history);
+                };
 
                 adapter.notifyDataSetChanged();
                 Log.d("responsestatus", "ok");
@@ -43,19 +61,11 @@ public class HistoryRequest {
         }) {
             protected Map<String, String> getParams() {
                 Map<String, String> MyData = new HashMap<String, String>();
-//                User user = AppEnvironment.getCurrentUser();
-//                user.getId();
-
-                MyData.put("token", "1");
-                //TODO replace userId sample
-//              MyData.put("userId", String.valueOf(userId));
-                MyData.put("userId", "3");
+                MyData.put("token", token);
+                MyData.put("userId", String.valueOf(userId));
                 return MyData;
             }
-
         };
-
         rq.add(myStringRequest);
-
     }
 }

@@ -8,22 +8,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ProcessImage {
     public static String ConvertImage2Base64(String filePath){
-        File imagefile = new File(filePath);
-        FileInputStream fis = null;
-        try{
-            fis = new FileInputStream(imagefile);
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
-        Bitmap bm = BitmapFactory.decodeStream(fis);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
-        byte[] b = baos.toByteArray();
-        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
-        //Base64.de
-        return encImage;
+        Bitmap selectedImage =  BitmapFactory.decodeFile(filePath);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        String base64 =Base64.encodeToString(byteArray, 0);
+        return base64;
     }
 }

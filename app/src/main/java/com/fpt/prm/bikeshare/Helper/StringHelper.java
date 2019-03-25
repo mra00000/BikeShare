@@ -25,4 +25,12 @@ public class StringHelper {
         }
         return rs;
     }
+
+    public static String shorten(String str){
+        String string = "";
+        if (str.trim().length()>60){
+            string = str.substring(0,60)+"...";
+        }
+        return string;
+    }
 }

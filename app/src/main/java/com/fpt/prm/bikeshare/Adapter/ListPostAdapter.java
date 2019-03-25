@@ -68,11 +68,12 @@ public class ListPostAdapter extends BaseAdapter {
         TextView txtTitle = view.findViewById(R.id.txtTitlePost);
         TextView txtPrice = view.findViewById(R.id.txtPrice);
         TextView txtTime = view.findViewById(R.id.txtTime);
-
+        TextView txtDescription = view.findViewById(R.id.txtDescription);
         final Post p = list.get(position);
 
         txtTitle.setText(p.getTitle());
-        txtPrice.setText("Price: "+String.valueOf(p.getPrice()));
+        txtDescription.setText(StringHelper.shorten(p.getDescription()));
+        txtPrice.setText("Price: $"+String.valueOf(p.getPrice()));
         txtTime.setText(TimeHelper.getTime(p.getCreatedTime()));
 
 

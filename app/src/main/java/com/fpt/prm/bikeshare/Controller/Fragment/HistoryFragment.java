@@ -9,12 +9,14 @@ import android.widget.ListView;
 
 import com.fpt.prm.bikeshare.Adapter.ListHistoryAdapter;
 import com.fpt.prm.bikeshare.Adapter.ListPostAdapter;
+import com.fpt.prm.bikeshare.Controller.Activity.MainActivity;
 import com.fpt.prm.bikeshare.Entity.History;
 import com.fpt.prm.bikeshare.Entity.Post;
 import com.fpt.prm.bikeshare.Entity.User;
 import com.fpt.prm.bikeshare.Helper.AppEnvironment;
 import com.fpt.prm.bikeshare.Helper.DataFaker;
 import com.fpt.prm.bikeshare.Helper.HistoryRequest;
+import com.fpt.prm.bikeshare.Model.HistoryResponseModel;
 import com.fpt.prm.bikeshare.R;
 
 import java.io.IOException;
@@ -23,9 +25,8 @@ import java.util.List;
 
 public class HistoryFragment extends Fragment {
     private ListView listHistoryView;
-    List<History> listHistory;
+    List<HistoryResponseModel> listHistory;
     User user;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,14 +42,15 @@ public class HistoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         listHistoryView = view.findViewById(R.id.listHistory);
         ListHistoryAdapter adapter = new ListHistoryAdapter( this.getActivity(), R.layout.history_layout, listHistory);
-        try {
-            HistoryRequest.getHistoryRequest(getActivity().getApplicationContext(), user.getId(), listHistory, adapter);
-            listHistoryView.setAdapter(adapter);
+        listHistoryView.setAdapter(adapter);
 
+        try {
+            String token = AppEnvironment.getGoogleSignInAccount().getIdToken();
+            HistoryRequest.getHistoryRequest(getContext(), token, user.getId(), listHistory, adapter);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        listHistoryView.setAdapter(adapter);
         return view;
     }
 

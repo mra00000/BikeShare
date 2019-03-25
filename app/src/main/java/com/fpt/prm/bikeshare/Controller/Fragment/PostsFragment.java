@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PostsFragment extends Fragment {
     private ListView listPostView;
     private Button btnNewPost;
     ListPostAdapter adapter;
@@ -61,7 +61,22 @@ public class PostsFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             }
         });
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                getData();
+//        listPostView.setAdapter(adapter);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                    }
+                }, 2000);
+            }
+        });
         listPostView = view.findViewById(R.id.listPostsView);
 
         adapter = new ListPostAdapter(this.getActivity(), R.layout.post_layout, listPost);
@@ -72,24 +87,24 @@ public class PostsFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
     public void getData(){
         try {
-            PostRequest.getPostRequest(getActivity().getApplicationContext(), listPost, adapter);
+            PostRequest.getPostRequest(getContext(), listPost, adapter);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    @Override
-    public void onRefresh() {
-        adapter = (ListPostAdapter) listPostView.getAdapter();
-        getData();
-        listPostView.setAdapter(adapter);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(false);
-
-            }
-        }, 2000);
-    }
+//    @Override
+//    public void onRefresh() {
+////        adapter = (ListPostAdapter) listPostView.getAdapter();
+//        getData();
+////        listPostView.setAdapter(adapter);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                mSwipeRefreshLayout.setRefreshing(false);
+//
+//            }
+//        }, 2000);
+//    }
 }
