@@ -10,6 +10,7 @@ import DAO.UserDAO;
 import Model.Transaction;
 import Model.User;
 import Services.FirebaseHelper;
+import Services.GoogleHelper;
 import java.util.List;
 import javax.json.JsonObject;
 import javax.ws.rs.core.Context;
@@ -53,7 +54,8 @@ public class TransactionHistoryResource {
         @FormParam("userId") int userId
     ) throws Exception {
         TransactionDAO transactionDao = new TransactionDAO();
-        if (!FirebaseHelper.checkAuthentication(token).equals("")) {
+        User user = (new UserDAO()).getUserById(userId);
+        if (GoogleHelper.authorize(token, user.getEmail())) {
             return transactionDao.getTransactionHistory(userId);
         }
         return null;

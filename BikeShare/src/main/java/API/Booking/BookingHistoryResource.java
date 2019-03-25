@@ -10,6 +10,7 @@ import DAO.UserDAO;
 import Model.Booking;
 import Model.User;
 import Services.FirebaseHelper;
+import Services.GoogleHelper;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -53,8 +54,9 @@ public class BookingHistoryResource {
         @FormParam("userId") int userId
     ) throws Exception {
         BookingDAO bookingDao = new BookingDAO();
-        if (!FirebaseHelper.checkAuthentication(token).equals("")) {
-            System.out.println(userId);
+        User user = (new UserDAO()).getUserById(userId);
+        if (GoogleHelper.authorize(token, user.getEmail())) {
+//            System.out.println(userId);
             List<Booking> bookings = bookingDao.getBookingHistory(userId);
             return bookings;
         }

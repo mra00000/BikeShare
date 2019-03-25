@@ -5,20 +5,23 @@
  */
 package API.Booking;
 
+import Common.Constant;
 import DAO.BookingDAO;
+import DAO.PostDAO;
+import DAO.UserDAO;
 import Model.Booking;
+import Model.Post;
+import Model.User;
 import Services.FirebaseHelper;
+import Services.GoogleHelper;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -44,21 +47,73 @@ public class CreateBookingResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createBooking(
+    public CreateBookingResponse createBooking(
         @FormParam("token") String token,
         @FormParam("userId") int userId,
-        @FormParam("postId") int PostId,
+        @FormParam("postId") int postId,
         @FormParam("action") String action
     ) throws Exception {
-        if (!FirebaseHelper.checkAuthentication(token).equals("")) {
+        UserDAO userDao = new UserDAO();
+        User user = userDao.getUserById(userId);
+        if (user == null) return new CreateBookingResponse(CreateBookingResponse.FAILED, "UserId is not valid");;
+        if (GoogleHelper.authorize(token, user.getEmail())) {
             //TODO check that token 's owner is userId
             BookingDAO bookingDao = new BookingDAO();
-            Booking booking = new Booking(userId, PostId, action);
-            int id = bookingDao.createBooking(booking);
-            if (id > 0) {
-                return Response.ok().build();
+            PostDAO postDao = new PostDAO();
+            Booking booking = new Booking(userId, postId, action);
+            
+            Post post = postDao.getPostById(postId);
+            if (post == null) {
+                return new CreateBookingResponse(CreateBookingResponse.FAILED, "Post is not valid");
+            } else {
+                User postOwnerUser = userDao.getUserById(post.getUserId());
+                double postPrice = post.getPrice();
+                double userBalance = user.getBalance();
+//                System.out.println(userBalance + " " + postPrice);
+                if (userBalance > postPrice) {
+                    user.setBalance(userBalance - postPrice);
+                    postOwnerUser.setBalance(postOwnerUser.getBalance() + postPrice * (1 - Constant.PROFIT_RATE));
+                    userDao.updateUser(user);
+                    userDao.updateUser(postOwnerUser);
+                    bookingDao.createBooking(booking);
+                    return new CreateBookingResponse(CreateBookingResponse.SUCCESSED, "Successed!");
+                } else {
+                    return new CreateBookingResponse(CreateBookingResponse.FAILED, "Your balance is not enough!");
+                }
             }
         }
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        return new CreateBookingResponse(CreateBookingResponse.FAILED, "You are't authorized to access!");
     }
+}
+
+class CreateBookingResponse {
+    public static int FAILED = -1;
+    public static int SUCCESSED;
+    private int status;
+    private String message;
+
+    public CreateBookingResponse() {
+    }
+
+    public CreateBookingResponse(int status, String message) {
+        this.status = status;
+        this.message = message;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
 }
