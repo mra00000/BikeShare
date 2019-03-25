@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserModel {
-    public static final String HOST = "http://34.80.20.194:8080/BikeShare/";
+    public static final String HOST = "http://10.0.3.2:8080/BikeShare/";
 
     public UserModel() {}
 

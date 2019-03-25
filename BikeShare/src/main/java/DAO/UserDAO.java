@@ -6,6 +6,7 @@
 package DAO;
 
 import Model.User;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,7 +16,6 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 /**
- *
  * @author ahcl
  */
 public class UserDAO {
@@ -24,8 +24,8 @@ public class UserDAO {
     public UserDAO() throws Exception {
         this.connection = (new DbContext()).getConnection();
     }
-    
-    public User getUserByEmail (String email) throws SQLException {
+
+    public User getUserByEmail(String email) throws SQLException {
         String sql = "select * from Users where email = ?";
         PreparedStatement pre = connection.prepareStatement(sql);
         pre.setString(1, email);
@@ -41,8 +41,8 @@ public class UserDAO {
             return new User(id, name, phone, email, password, balance, createTime, lastUpdatedTime);
         } else return null;
     }
-    
-    public User getUserById (int id) throws SQLException {
+
+    public User getUserById(int id) throws SQLException {
         String sql = "select * from Users where id = ?";
         PreparedStatement pre = connection.prepareStatement(sql);
         pre.setInt(1, id);
@@ -58,8 +58,8 @@ public class UserDAO {
             return new User(id, name, phone, email, password, balance, createTime, lastUpdatedTime);
         } else return null;
     }
-    
-    public int addUser (User user) throws SQLException {
+
+    public int addUser(User user) throws SQLException {
         String sql = "insert into Users(name, email, password, phone, balance, created_at, updated_at) values(?,?,?,?,?,?,?)";
         PreparedStatement pre = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pre.setString(1, user.getName());
@@ -79,8 +79,8 @@ public class UserDAO {
         }
         return -1;
     }
-    
-    public boolean updateUser (User user) throws SQLException {
+
+    public boolean updateUser(User user) throws SQLException {
         String sql = "update users "
                 + "set name = ?, email = ?, password = ?, balance = ?, created_at = ?, updated_at = ? "
                 + "where id = ?";
@@ -95,11 +95,23 @@ public class UserDAO {
         boolean ok = pre.execute();
         return ok;
     }
-    
-    public boolean isExisted (String email) throws SQLException {
+
+    public void chargeBalance(String email, double balance) {
+        try {
+            String sql = "update users set balance=balance+? where email=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setDouble(1, balance);
+            ps.setString(2, email);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isExisted(String email) throws SQLException {
         return (this.getUserByEmail(email) != null);
     }
-    
+
     public static void main(String[] args) throws Exception {
         UserDAO dao = new UserDAO();
         try {

@@ -42,6 +42,7 @@ public class ApplicationConfig extends Application {
         resources.add(API.User.UserInfoResource.class);
         resources.add(API.User.UserResource.class);
         resources.add(API.User.WithdrawResource.class);
+        resources.add(API.Transaction.Transactions.class);
     }
     
 }
