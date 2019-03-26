@@ -6,10 +6,15 @@
 package API.Booking;
 
 import DAO.BookingDAO;
+import DAO.PostDAO;
 import DAO.UserDAO;
 import Model.Booking;
+import Model.BookingAction;
+import Model.Post;
 import Model.User;
 import Services.FirebaseHelper;
+import Services.GoogleHelper;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -48,16 +53,70 @@ public class BookingHistoryResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Booking> getBookingHistory (
+    public List<HistoryResponse> getBookingHistory (
         @FormParam("token") String token,
         @FormParam("userId") int userId
     ) throws Exception {
         BookingDAO bookingDao = new BookingDAO();
-        if (!FirebaseHelper.checkAuthentication(token).equals("")) {
-            System.out.println(userId);
+        User user = (new UserDAO()).getUserById(userId);
+        if (GoogleHelper.authorize(token, user.getEmail())) {
             List<Booking> bookings = bookingDao.getBookingHistory(userId);
-            return bookings;
+            List<HistoryResponse> historyResponses = new ArrayList<>();
+            for(Booking booking:bookings) {
+                String phone = "";
+                if (booking.getAction().equalsIgnoreCase(BookingAction.RENT)) {
+                    Post post = (new PostDAO()).getPostById(booking.getPostId());
+                    User postOwnerUser = (new UserDAO()).getUserById(post.getUserId());
+                    phone = postOwnerUser.getPhone();
+                }
+                historyResponses.add(new HistoryResponse(booking.getUserId(), booking.getPostId(), booking.getAction(), phone));
+            }
+            return historyResponses;
         }
         return null;
+    }
+}
+
+class HistoryResponse {
+    private int userId, postId;
+    private String action, phone;
+
+    public HistoryResponse(int userId, int postId, String action, String phone) {
+        this.userId = userId;
+        this.postId = postId;
+        this.action = action;
+        this.phone = phone;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

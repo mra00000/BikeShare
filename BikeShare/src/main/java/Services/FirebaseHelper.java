@@ -37,11 +37,11 @@ import sun.nio.cs.StandardCharsets;
  */
 public class FirebaseHelper {
         
-    public static String checkAuthentication (String token) {
-
-        //TODO if authenticated, return email
-        return "asdf";
-    }
+//    public static String checkAuthentication (String token) {
+//
+//        //TODO if authenticated, return email
+//        return "asdf";
+//    }
     
     public static String upload(byte[] image, String name) throws FileNotFoundException, IOException {
         System.out.println(FirebaseApp.getApps().size());

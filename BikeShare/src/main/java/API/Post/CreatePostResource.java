@@ -5,23 +5,25 @@
  */
 package API.Post;
 
+import DAO.BookingDAO;
 import DAO.PostDAO;
+import DAO.UserDAO;
 import Helpers.MyStringHelpers;
+import Model.Booking;
+import Model.BookingAction;
 import Model.Post;
+import Model.User;
 import Services.FirebaseHelper;
-import java.util.ArrayList;
+import Services.GoogleHelper;
 import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -61,7 +63,8 @@ public class CreatePostResource {
             @FormParam("token") String token,
             @FormParam("images") String images
     ) throws Exception {
-        if (!FirebaseHelper.checkAuthentication(token).equalsIgnoreCase("")) {
+        User user = (new UserDAO()).getUserById(userId);
+        if (GoogleHelper.authorize(token, user.getEmail())) {
             PostDAO postDao = new PostDAO();
             Post post = new Post(userId, title, description, "", price);
             int postId = postDao.createPost(post);
@@ -79,7 +82,8 @@ public class CreatePostResource {
                 }
                 post = postDao.getPostById(postId);
                 post.setImages(postImages);
-                System.out.println(postImages);
+                Booking booking = new Booking(userId, postId, BookingAction.POST);
+                (new BookingDAO()).createBooking(booking);
                 boolean ok = postDao.updatePost(post);
                 if (ok) {
                     return post;

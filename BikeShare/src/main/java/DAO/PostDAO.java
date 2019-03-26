@@ -63,13 +63,16 @@ public class PostDAO {
     }
     
     public List<Post> getPosts (int from, int to) throws SQLException {
-        String sql = "SELECT  *\n" +
-                        "FROM    ( SELECT ROW_NUMBER() OVER ( ORDER BY updated_at DESC) AS RowNum, *\n" +
-                        "          FROM      posts\n" +
-                        "        ) AS RowConstrainedResult\n" +
-                        "WHERE   RowNum >= ?\n" +
-                        "    AND RowNum < ?\n" +
-                        "ORDER BY RowNum";
+        String sql = "SELECT  id, user_id, title, images, description, price, created_at, updated_at FROM    \n" +
+                    "(SELECT ROW_NUMBER() OVER (ORDER BY updated_at DESC) AS RowNum, * FROM     \n" +
+                    "	(select * from posts t1 \n" +
+                    "       where not exists\n" +
+                    "       ( select post_id from share_history\n" +
+                    "       where action = 'RENT' and t1.id = share_history.post_id)\n" +
+                    "       ) as t) as t1\n" +
+                    "                       WHERE   RowNum >= ?\n" +
+                    "                           AND RowNum < ?\n" +
+                    "                       ORDER BY RowNum";
         PreparedStatement pre = connection.prepareStatement(sql);
         pre.setInt(1, from);
         pre.setInt(2, to);
@@ -196,10 +199,8 @@ public class PostDAO {
     public static void main(String[] args) throws Exception {
         PostDAO dao = new PostDAO();
         try {
-            long time = (new Date()).getTime();
-            Post post = new Post(3, 2, "cho muon xe xxx", "minh cho muon xe thu 7 va chu nhat tuan nay......", "https://storage.googleapis.com/bikeshare-fb429.appspot.com/test5.png?GoogleAccessId=firebase-adminsdk-0g30i@bikeshare-fb429.iam.gserviceaccount.com&Expires=1584715482&Signature=OYfYEjHMoiraEtMJSyBM5hkUl4l2fNxTUqyLZOmUo2E2fsDlBbFQdi%2BSiRNRiHecwVGB5mZTA9fVio02c1e0rS6AlgIWqsOa5n2UplJnxbcFC6h0rVB4lx7w6zBEbOyUYuAYCUcaelDl3Dr0pmxTrllUjbkjERrPZKWcl8omwkiLhTQOvhvQW4L4kjLgYDpfDYHT2qZ73J8h5L7mwO1nynYrMD1g2t%2FNMrbLxdt2NVGkE21Kro9P8pvlgjfESThj8ljNuJ%2BDqey8RNGIhcs0TCFOs%2FVQcfqV6RuLD6DRq3ALlX0jwVPDXRvtgNfDC2OtDXCTjol2jh58rRpTRyRtFA%3D%3D",
-                12.123, new Timestamp(time), new Timestamp(time));
-            dao.updatePost(post);
+            List<Post> posts = dao.getPosts(0, 10);
+            System.out.println(posts.size());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -32,27 +32,26 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         txtTitle = (TextView) findViewById(R.id.txtDtitle);
         txtPrice = (TextView) findViewById(R.id.txtDprice);
-        txtDescription = (TextView) findViewById(R.id.txtDdescription);
+        txtDescription = (TextView) findViewById(R.id
+                id = post.getId();
+        Log.v("idPost","id: "+id);
+        txtTitle.setText(post.getTitle());
+        txtPrice.setText("Price: "+post.getPrice());
+        txtDescription.setText(post.getDescription());
+        txtTime.setText(post.getCreatedTime().toString());
+        txtPrice.setTextColor(Color.BLUE);
+        final List<String> imageUrls = StringHelper.toList(post.getImages(), "|");
+//            new ProcessImage.GetImageFromURL(imageView).execute(imageUrls.get(0));
+
+        ImageAdapter ia = new ImageAdapter(getBaseContext(), imageUrls);
+        viewPager.setAdapter(ia);
+    }.txtDdescription);
         txtTime = (TextView) findViewById(R.id.txtDTime);
 
         final ViewPager viewPager = findViewById(R.id.viewPager);
         Intent intent = getIntent();
         Post post = (Post) intent.getSerializableExtra("post");
         if(post != null){
-            id = post.getId();
-            Log.v("idPost","id: "+id);
-            txtTitle.setText(post.getTitle());
-            txtPrice.setText("Price: "+post.getPrice());
-            txtDescription.setText(post.getDescription());
-            txtTime.setText(post.getCreatedTime().toString());
-            txtPrice.setTextColor(Color.BLUE);
-            final List<String> imageUrls = StringHelper.toList(post.getImages(), "|");
-//            new ProcessImage.GetImageFromURL(imageView).execute(imageUrls.get(0));
-
-            ImageAdapter ia = new ImageAdapter(getBaseContext(), imageUrls);
-            viewPager.setAdapter(ia);
-
-        }
     }
 
 }

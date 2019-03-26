@@ -8,6 +8,7 @@ package API.User;
 import DAO.UserDAO;
 import Model.User;
 import Services.FirebaseHelper;
+import Services.GoogleHelper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -71,11 +72,11 @@ public class UserInfoResource {
         @FormParam("userId") int userId
     ) throws Exception {
         userDao = new UserDAO();
-        if (!FirebaseHelper.checkAuthentication(token).equals("")) {
-            User userInfo = userDao.getUserById(userId);
+        User userInfo = userDao.getUserById(userId);
+        if (userInfo == null) return null;
+        if (GoogleHelper.authorize(token, userInfo.getEmail())) {
             return userInfo;
-        } else {
-            return null;
         }
+        return null;
     }
 }
